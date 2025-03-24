@@ -52,5 +52,7 @@
     <string name="recover_password_message">Si el email existe en nuestro sistema te enviaremos un email para recuperar tu clave</string>
     <string name="recover_password_recover">Recuperar Clave</string>
     <string name="recover_password_cancel">Cancelar</string>
+    <string name="recover_password_email_format_error">Debe ingresar un email valido</string>
+    <string name="recover_password_match_error">La claves no coinciden</string>
 
 </resources>
