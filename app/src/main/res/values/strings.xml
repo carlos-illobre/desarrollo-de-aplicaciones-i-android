@@ -43,4 +43,14 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recover_password_title">Recuperar Clave</string>
+    <string name="recover_password_email">Email:</string>
+    <string name="recover_password_new_password">Nueva Clave:</string>
+    <string name="recover_password_confirm_password">Confirmar Clave:</string>
+    <string name="recover_password_message">Si el email existe en nuestro sistema te enviaremos un email para recuperar tu clave</string>
+    <string name="recover_password_recover">Recuperar Clave</string>
+    <string name="recover_password_cancel">Cancelar</string>
+
 </resources>
