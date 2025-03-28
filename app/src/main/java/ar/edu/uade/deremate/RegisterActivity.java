@@ -5,12 +5,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import ar.edu.uade.deremate.model.SignUpRequest;
+import ar.edu.uade.deremate.service.AuthApiService;
+import retrofit2.Call;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -57,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void registerUser() {
         String emailR = editEmail.getText().toString().trim();
         String contraseñaR = editContraseña.getText().toString().trim();
+        String confirmContraR = editConfirmContra.getText().toString().trim();
 
         isValid = true; // Se activan las validaciones
         checkFields(); // Validar los campos
@@ -65,7 +71,33 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        //Logica de para enviar el codigo de verificacion
+        //Logica de para enviar el codigo de verificacion con Retrofit
+        AuthApiService apiService = ApiClient.getClient().create(AuthApiService.class);
+        SignUpRequest request = new SignUpRequest(emailR, contraseñaR, confirmContraR);
+        Call<Void> call = apiService.signUp(request);
+
+        call.enqueue(new retrofit2.Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    runOnUiThread(() -> {
+                        Toast.makeText(RegisterActivity.this, "Error en el registro", Toast.LENGTH_LONG).show();
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                runOnUiThread(() -> {
+                    Toast.makeText(RegisterActivity.this, "Error de conexión", Toast.LENGTH_LONG).show();
+                });
+                t.printStackTrace();
+            }
+        });
     }
 
     private void addTextWatchers() {
@@ -125,15 +157,15 @@ public class RegisterActivity extends AppCompatActivity {
         if (contraseñaR.isEmpty()) {
             editContraseña.setError("La contraseña no puede estar vacía");
             isPasswordValid = false;
+        } else if (contraseñaR.length() < 6) {
+            editContraseña.setError("Debe tener al menos 6 caracteres");
+            isPasswordValid = false;
         } else {
             editContraseña.setError(null);
         }
 
         if (confirmContraR.isEmpty()) {
             editConfirmContra.setError("Confirma tu contraseña");
-            isConfirmPasswordValid = false;
-        } else if (!confirmContraR.equals(contraseñaR)) {
-            editConfirmContra.setError("Las contraseñas no coinciden");
             isConfirmPasswordValid = false;
         } else {
             editConfirmContra.setError(null);
