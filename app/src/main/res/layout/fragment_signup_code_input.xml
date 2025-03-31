@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="false"
     android:layout_marginLeft="60dp"
     android:layout_marginRight="60dp"
     android:backgroundTint="#731C1C"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".fragment.SignupCodeFragment">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/signupCodeTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter the code you received via email"
+        android:text="@string/signUpCodeTitleText"
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold" />
@@ -21,10 +23,10 @@
         android:id="@+id/signUpCodeInput"
         android:layout_width="291dp"
         android:layout_height="wrap_content"
+        android:autofillHints="123456"
         android:ems="10"
-        android:inputType="text"
+        android:inputType="number"
         android:maxLength="6"
-        android:text="123456"
         android:textSize="16sp" />
 
     <LinearLayout
@@ -37,15 +39,15 @@
             android:id="@+id/cancelSignUpCodeInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cancelar"
             android:backgroundTint="?attr/colorSecondary"
+            android:text="@string/cancelSignUpCodeText"
             android:textColorLink="#FFFBFB" />
 
         <Button
             android:id="@+id/acceptSignUpCodeInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Aceptar" />
-    </LinearLayout>
+            android:text="@string/acceptSignupCodeText" />
 
+    </LinearLayout>
 </LinearLayout>
