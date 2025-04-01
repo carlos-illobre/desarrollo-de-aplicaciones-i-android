@@ -48,4 +48,6 @@
     <string name="cancelar">Cancelar</string>
     <string name="contrase_a">Contraseña</string>
     <string name="confirmar_contrase_a">Confirmar Contraseña</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
 </resources>
