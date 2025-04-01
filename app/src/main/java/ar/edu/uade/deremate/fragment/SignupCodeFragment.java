@@ -28,16 +28,11 @@ import retrofit2.Response;
 
 public class SignupCodeFragment extends Fragment {
 
-    @Inject
-    private AuthServiceClient authServiceClient;
     private TextView signupCodeTitle;
     private EditText signupCodeInput;
     private Button cancelButton;
     private Button acceptButton;
-
     private AuthService authService;
-
-    private TextView messageText;
 
     public SignupCodeFragment() {
         // Required empty public constructor
@@ -72,7 +67,6 @@ public class SignupCodeFragment extends Fragment {
         signupCodeInput.requestFocus();
         acceptButton = view.findViewById(R.id.acceptSignUpCodeInput);
         cancelButton = view.findViewById(R.id.cancelSignUpCodeInput);
-        //messageText = view.findViewById(R.id.recoverPassword_messageText);
 
         acceptButton.setEnabled(false);
 
