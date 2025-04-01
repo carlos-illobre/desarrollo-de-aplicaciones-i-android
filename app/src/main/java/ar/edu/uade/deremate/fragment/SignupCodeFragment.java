@@ -49,7 +49,6 @@ public class SignupCodeFragment extends Fragment {
      *
      * @return A new instance of fragment RecoverPasswordFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static SignupCodeFragment newInstance() {
         SignupCodeFragment fragment = new SignupCodeFragment();
         Bundle args = new Bundle();
@@ -70,7 +69,8 @@ public class SignupCodeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_signup_code_input, container, false);
 
         signupCodeInput = view.findViewById(R.id.signUpCodeInput);
-        acceptButton = view.findViewById(R.id.acceptSignUpCodeInput);;
+        signupCodeInput.requestFocus();
+        acceptButton = view.findViewById(R.id.acceptSignUpCodeInput);
         cancelButton = view.findViewById(R.id.cancelSignUpCodeInput);
         //messageText = view.findViewById(R.id.recoverPassword_messageText);
 

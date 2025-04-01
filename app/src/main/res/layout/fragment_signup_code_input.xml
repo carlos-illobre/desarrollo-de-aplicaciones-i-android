@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="false"
-    android:layout_marginLeft="60dp"
-    android:layout_marginRight="60dp"
+    android:layout_gravity="center_horizontal"
     android:backgroundTint="#731C1C"
     android:orientation="vertical"
     tools:context=".fragment.SignupCodeFragment">
@@ -19,15 +19,28 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <EditText
+    <com.chaos.view.PinView
         android:id="@+id/signUpCodeInput"
-        android:layout_width="291dp"
+        style="@style/PinWidget.PinView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:autofillHints="123456"
-        android:ems="10"
-        android:inputType="number"
-        android:maxLength="6"
-        android:textSize="16sp" />
+        android:layout_gravity="center"
+        android:cursorVisible="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:hint="123456"
+        android:inputType="text"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cursorWidth="2dp"
+        app:itemCount="6"
+        app:itemHeight="48dp"
+        app:itemRadius="4dp"
+        app:itemSpacing="2dp"
+        app:itemWidth="48dp"
+        app:lineColor="?attr/colorSecondary"
+        app:lineWidth="2dp"
+        app:viewType="rectangle" />
 
     <LinearLayout
         android:layout_width="wrap_content"
