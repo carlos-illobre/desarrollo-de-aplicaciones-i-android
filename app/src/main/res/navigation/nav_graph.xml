@@ -31,6 +31,6 @@
     <fragment
         android:id="@+id/recoverPasswordFragment"
         android:name="ar.edu.uade.deremate.RecoverPasswordFragment"
-        android:label="fragment_recover_password"
+        android:label="@string/fragment_recover_password"
         tools:layout="@layout/fragment_recover_password" />
 </navigation>

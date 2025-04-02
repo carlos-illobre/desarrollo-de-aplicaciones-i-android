@@ -27,7 +27,6 @@ public class RecoverPasswordFragment extends Fragment {
     private EditText confirmPasswordInput;
     private Button recoverButton;
     private Button cancelButton;
-    private TextView messageText;
 
     public RecoverPasswordFragment() {
         // Required empty public constructor
@@ -63,7 +62,6 @@ public class RecoverPasswordFragment extends Fragment {
         confirmPasswordInput = view.findViewById(R.id.recoverPassword_confirmPasswordInput);
         recoverButton = view.findViewById(R.id.recoverPassword_recoverButton);
         cancelButton = view.findViewById(R.id.recoverPassword_cancelButton);
-        messageText = view.findViewById(R.id.recoverPassword_messageText);
 
         recoverButton.setEnabled(false);
 
