@@ -1,19 +1,28 @@
-package ar.edu.uade.deremate;
+package ar.edu.uade.deremate.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import ar.edu.uade.deremate.R;
+import ar.edu.uade.deremate.model.RecoverPasswordRequest;
+import ar.edu.uade.deremate.service.AuthService;
+import ar.edu.uade.deremate.service.AuthServiceClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +31,7 @@ import android.widget.Toast;
  */
 public class RecoverPasswordFragment extends Fragment {
 
+    private AuthService authService;
     private EditText emailInput;
     private EditText passwordInput;
     private EditText confirmPasswordInput;
@@ -48,6 +58,7 @@ public class RecoverPasswordFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        authService = AuthServiceClient.getClient().create(AuthService.class);
         super.onCreate(savedInstanceState);
     }
 
@@ -93,8 +104,32 @@ public class RecoverPasswordFragment extends Fragment {
         confirmPasswordInput.addTextChangedListener(textWatcher);
 
         recoverButton.setOnClickListener(v -> {
-            Toast.makeText(getActivity(), getString(R.string.recover_password_message), Toast.LENGTH_LONG).show();
-            requireActivity().getSupportFragmentManager().popBackStack();
+            Log.d("RecoverPasswordFragment", "Recover button clicked");
+
+            RecoverPasswordRequest request = new RecoverPasswordRequest()
+                    .setEmail(emailInput.getText().toString())
+                    .setPassword(passwordInput.getText().toString())
+                    .setPasswordConfirmation(confirmPasswordInput.getText().toString());
+
+            Call<Void> call = this.authService.recoverPassword(request);
+            call.enqueue(new Callback<>() {
+                @Override
+                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(getActivity(), getString(R.string.recover_password_message), Toast.LENGTH_LONG).show();
+                        requireActivity().getSupportFragmentManager().popBackStack();
+                    } else {
+                        Log.e("RecoverPasswordFragment", "API call failed");
+                        Toast.makeText(getActivity(), response.message(), Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                    Log.e("RecoverPasswordFragment", "API call failed", t);
+                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
         });
         cancelButton.setOnClickListener(v->requireActivity().getSupportFragmentManager().popBackStack());
     }
