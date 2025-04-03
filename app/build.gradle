@@ -41,4 +41,12 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+
+    // Dagger Hilt
+    implementation("com.google.dagger:hilt-android:2.48")
+    annotationProcessor("com.google.dagger:hilt-android-compiler:2.48")
+
+    // Security Crypto
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+
 }
