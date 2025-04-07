@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.dagger.hilt.android") version "2.48"
 }
 
 android {
@@ -41,8 +42,15 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+    implementation libs.pinview
+
+    // Dagger Hilt
+    implementation(libs.hilt.android)
+    annotationProcessor(libs.hilt.android.compiler)
+
+    //Retrofit
     implementation libs.retrofit
     implementation libs.okhttp
     implementation libs.converter.gson
-    implementation libs.pinview
+    implementation(libs.logging.interceptor)
 }

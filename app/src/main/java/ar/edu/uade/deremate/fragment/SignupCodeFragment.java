@@ -2,7 +2,6 @@ package ar.edu.uade.deremate.fragment;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
@@ -19,20 +18,16 @@ import android.widget.Toast;
 import javax.inject.Inject;
 
 import ar.edu.uade.deremate.R;
-import ar.edu.uade.deremate.model.ConfirmSignupRequest;
-import ar.edu.uade.deremate.service.AuthService;
-import ar.edu.uade.deremate.service.AuthServiceClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import ar.edu.uade.deremate.repository.auth.AuthRepository;
+import ar.edu.uade.deremate.repository.auth.AuthServiceCallback;
 
 public class SignupCodeFragment extends Fragment {
 
-    private TextView signupCodeTitle;
     private EditText signupCodeInput;
     private Button cancelButton;
     private Button acceptButton;
-    private AuthService authService;
+    @Inject
+    AuthRepository authRepository;
 
     public SignupCodeFragment() {
         // Required empty public constructor
@@ -49,12 +44,6 @@ public class SignupCodeFragment extends Fragment {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        authService = AuthServiceClient.getClient().create(AuthService.class);
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -84,7 +73,7 @@ public class SignupCodeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validateInputs();
+                validateInput();
             }
 
             @Override
@@ -95,36 +84,32 @@ public class SignupCodeFragment extends Fragment {
 
         signupCodeInput.addTextChangedListener(textWatcher);
 
-        cancelButton.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().popBackStack();
-        });
+        cancelButton.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
         acceptButton.setOnClickListener(v -> {
             Log.d("SignupCodeFragment", "Accept button clicked");
             Toast.makeText(getActivity(), "Accept button clicked", Toast.LENGTH_SHORT).show();
 
             String signupCode = signupCodeInput.getText().toString();
-            ConfirmSignupRequest request = new ConfirmSignupRequest(signupCode);
-            Call<Void> call = this.authService.confirmSignup(request);
-            call.enqueue(new Callback<Void>() {
-                @Override
-                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                    if (response.isSuccessful()) {
-                        Toast.makeText(getActivity(), "Validación exitosa! Tu usuario fue creado", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(getActivity(), "Validation failed", Toast.LENGTH_LONG).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Void> call, Throwable t) {
-                    Log.e("SignupCodeFragment", "API call failed", t);
-                    Toast.makeText(getActivity(), "API call failed", Toast.LENGTH_LONG).show();
-                }
-            });
+            confirmSignup(signupCode);
         });
     }
 
-    private void validateInputs() {
+    private void confirmSignup(String signupCode) {
+        authRepository.confirmSignup(signupCode, new AuthServiceCallback() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getActivity(), "Signup confirmed successfully", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                Log.e("SignupCodeFragment", "API call failed",error);
+                Toast.makeText(getActivity(), "Failed to confirm signup", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void validateInput() {
         String signupCode = signupCodeInput.getText().toString();
         boolean isValidCode = signupCode.matches("\\d{6}");
 

@@ -1,6 +1,6 @@
-package ar.edu.uade.deremate.service;
+package ar.edu.uade.deremate.data.api;
 
-import ar.edu.uade.deremate.model.ConfirmSignupRequest;
+import ar.edu.uade.deremate.data.api.model.ConfirmSignupRequest;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
