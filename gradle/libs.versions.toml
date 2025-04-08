@@ -21,4 +21,5 @@ navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+hilt = { id = "com.google.dagger.hilt.android", version = "2.48" }
 

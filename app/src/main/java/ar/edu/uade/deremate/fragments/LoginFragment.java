@@ -21,10 +21,28 @@ import androidx.fragment.app.FragmentTransaction;
 import ar.edu.uade.deremate.MainActivity;
 import ar.edu.uade.deremate.R;
 
+import androidx.lifecycle.ViewModelProvider;
+
+import org.json.JSONObject;
+
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.concurrent.Executors;
+
+import javax.inject.Inject;
+
+import ar.edu.uade.deremate.data.repository.token.TokenRepository;
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class LoginFragment extends Fragment {
     private EditText emailInput, passwordInput;
     private Button loginButton;
     private TextView registerButton, forgotPasswordButton, messageText;
+    @Inject
+    TokenRepository tokenRepository;
+
 
     @Nullable
     @Override
@@ -85,19 +103,56 @@ public class LoginFragment extends Fragment {
         String email = emailInput.getText().toString();
         String password = passwordInput.getText().toString();
 
-        if (password.equals("incorrecta")) {
-            Toast.makeText(getActivity(), "Clave incorrecta", Toast.LENGTH_SHORT).show();
-        } else {
-            SharedPreferences prefs = requireActivity().getSharedPreferences("AppPrefs", getActivity().MODE_PRIVATE);
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("isLoggedIn", true);
-            editor.apply();
+        Executors.newSingleThreadExecutor().execute(() -> {
+            try {
+                URL url = new URL("/auth/signin");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                conn.setDoOutput(true);
 
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
-            requireActivity().finish();
-        }
+                JSONObject jsonBody = new JSONObject();
+                jsonBody.put("email", email);
+                jsonBody.put("password", password);
+
+                OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+                writer.write(jsonBody.toString());
+                writer.flush();
+                writer.close();
+
+                int responseCode = conn.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    String response = new java.util.Scanner(conn.getInputStream()).useDelimiter("\\A").next();
+                    JSONObject jsonResponse = new JSONObject(response);
+                    String token = jsonResponse.getString("access_token");
+
+                    tokenRepository.saveToken(token);
+
+                    requireActivity().runOnUiThread(() -> {
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
+                        requireActivity().finish();
+                    });
+
+                } else {
+                    String errorResponse = new java.util.Scanner(conn.getErrorStream()).useDelimiter("\\A").next();
+                    JSONObject jsonError = new JSONObject(errorResponse);
+                    String message = jsonError.optString("error", "Error desconocido");
+
+                    requireActivity().runOnUiThread(() ->
+                            Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show()
+                    );
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                requireActivity().runOnUiThread(() ->
+                        Toast.makeText(getActivity(), "Error de red o servidor", Toast.LENGTH_LONG).show()
+                );
+            }
+        });
     }
+
 
     private void navigateToRegister() {
         Toast.makeText(getActivity(), "Registro", Toast.LENGTH_SHORT).show();
