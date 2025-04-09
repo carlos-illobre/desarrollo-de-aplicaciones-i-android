@@ -7,10 +7,21 @@
     <string name="main_menu_label">Elegí una opción para navegar</string>
 
     <string name="signup_code_input_text">Signup Code Input</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="signUpCodeTitleText">Ingresá el código que te enviamos por email</string>
     <string name="cancelSignUpCodeText">Cancelar</string>
     <string name="acceptSignupCodeText">Aceptar</string>
     <string name="signup_code_error">El código debe ser numérico de 6 dígitos</string>
+
+    <string name="recover_password_title">Recuperar Clave</string>
+    <string name="recover_password_email">Email:</string>
+    <string name="recover_password_new_password">Nueva Clave:</string>
+    <string name="recover_password_confirm_password">Confirmar Clave:</string>
+    <string name="recover_password_message">Si el email existe en nuestro sistema te enviaremos un email para recuperar tu clave</string>
+    <string name="recover_password_recover">Recuperar Clave</string>
+    <string name="recover_password_cancel">Cancelar</string>
+    <string name="recover_password_email_format_error">Debe ingresar un email valido</string>
+    <string name="recover_password_match_error">La claves no coinciden</string>
+    <string name="fragment_recover_password">Recuperación de Clave</string>
+
 </resources>

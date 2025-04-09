@@ -24,4 +24,9 @@
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/action_FirstFragment_to_SecondFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/recoverPasswordFragment"
+        android:name="ar.edu.uade.deremate.RecoverPasswordFragment"
+        android:label="@string/fragment_recover_password"
+        tools:layout="@layout/fragment_recover_password" />
 </navigation>
