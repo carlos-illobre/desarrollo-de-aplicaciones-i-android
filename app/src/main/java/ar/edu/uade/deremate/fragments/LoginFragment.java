@@ -43,6 +43,9 @@ public class LoginFragment extends Fragment {
     @Inject
     TokenRepository tokenRepository;
 
+    public static final String BASE_URL = "http://10.0.2.2:3000";
+
+
 
     @Nullable
     @Override
@@ -105,7 +108,7 @@ public class LoginFragment extends Fragment {
 
         Executors.newSingleThreadExecutor().execute(() -> {
             try {
-                URL url = new URL("/auth/signin");
+                URL url = new URL(BASE_URL + "/auth/signin");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -137,7 +140,8 @@ public class LoginFragment extends Fragment {
                 } else {
                     String errorResponse = new java.util.Scanner(conn.getErrorStream()).useDelimiter("\\A").next();
                     JSONObject jsonError = new JSONObject(errorResponse);
-                    String message = jsonError.optString("error", "Error desconocido");
+                    String message = jsonError.has("message") ? jsonError.getJSONArray("message").getString(0) : "Error desconocido";
+
 
                     requireActivity().runOnUiThread(() ->
                             Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show()
