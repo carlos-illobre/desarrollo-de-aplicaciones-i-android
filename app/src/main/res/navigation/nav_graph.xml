@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/SignUpCodeFragment">
+    app:startDestination="@id/recoverPasswordFragment">
 
     <fragment
         android:id="@+id/SignUpCodeFragment"
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/recoverPasswordFragment"
-        android:name="ar.edu.uade.deremate.RecoverPasswordFragment"
+        android:name="ar.edu.uade.deremate.fragment.RecoverPasswordFragment"
         android:label="@string/fragment_recover_password"
         tools:layout="@layout/fragment_recover_password" />
 </navigation>

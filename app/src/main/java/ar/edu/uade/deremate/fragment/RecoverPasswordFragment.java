@@ -1,4 +1,4 @@
-package ar.edu.uade.deremate;
+package ar.edu.uade.deremate.fragment;
 
 import android.os.Bundle;
 
@@ -6,20 +6,24 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RecoverPasswordFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import javax.inject.Inject;
+
+import ar.edu.uade.deremate.R;
+import ar.edu.uade.deremate.data.repository.auth.AuthRepository;
+import ar.edu.uade.deremate.data.repository.auth.AuthServiceCallback;
+import ar.edu.uade.deremate.data.api.model.RecoverPasswordRequest;
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class RecoverPasswordFragment extends Fragment {
 
     private EditText emailInput;
@@ -27,29 +31,9 @@ public class RecoverPasswordFragment extends Fragment {
     private EditText confirmPasswordInput;
     private Button recoverButton;
     private Button cancelButton;
+    @Inject
+    AuthRepository authRepository;
 
-    public RecoverPasswordFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment RecoverPasswordFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RecoverPasswordFragment newInstance() {
-        RecoverPasswordFragment fragment = new RecoverPasswordFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,9 +77,13 @@ public class RecoverPasswordFragment extends Fragment {
         confirmPasswordInput.addTextChangedListener(textWatcher);
 
         recoverButton.setOnClickListener(v -> {
-            Toast.makeText(getActivity(), getString(R.string.recover_password_message), Toast.LENGTH_LONG).show();
-            requireActivity().getSupportFragmentManager().popBackStack();
-        });
+                    Log.d("RecoverPasswordFragment", "Recover button clicked");
+                    recoverPassword(
+                            emailInput.getText().toString().trim(),
+                            passwordInput.getText().toString(),
+                            confirmPasswordInput.getText().toString()
+                    );
+                });
         cancelButton.setOnClickListener(v->requireActivity().getSupportFragmentManager().popBackStack());
     }
 
@@ -111,5 +99,25 @@ public class RecoverPasswordFragment extends Fragment {
         confirmPasswordInput.setError(isPasswordMatch ? null : getString(R.string.recover_password_match_error));
 
         recoverButton.setEnabled(isValidEmail && isPasswordMatch && !email.isEmpty() && !password.isEmpty());
+    }
+
+    private void recoverPassword(String email, String password, String confirmPassword) {
+        RecoverPasswordRequest request = new RecoverPasswordRequest()
+                .setEmail(email)
+                .setPassword(password)
+                .setPasswordConfirmation(confirmPassword);
+
+        this.authRepository.recoverPassword(request, new AuthServiceCallback() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getActivity(), "Signup confirmed successfully", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                Log.e("RecoverPasswordFragment", "API call failed",error);
+                Toast.makeText(getActivity(), "Failed to recover password", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
