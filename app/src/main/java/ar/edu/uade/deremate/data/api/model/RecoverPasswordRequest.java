@@ -1,4 +1,4 @@
-package ar.edu.uade.deremate.model;
+package ar.edu.uade.deremate.data.api.model;
 
 public class RecoverPasswordRequest {
     private String email;
