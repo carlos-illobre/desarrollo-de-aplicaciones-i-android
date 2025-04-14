@@ -28,7 +28,7 @@
         android:cursorVisible="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:hint="123456"
+        android:hint="@string/otpHint"
         android:inputType="text"
         android:textSize="18sp"
         android:textStyle="bold"
