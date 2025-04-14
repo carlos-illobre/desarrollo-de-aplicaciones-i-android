@@ -3,20 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/SignUpCodeFragment">
 
-    <fragment
-        android:id="@+id/FirstFragment"
-        android:name="ar.edu.uade.deremate.fragment.FirstFragment"
-        android:label="@string/main_menu_label"
-        tools:layout="@layout/fragment_first">
-        <action
-            android:id="@+id/action_FirstFragment_to_SignUpFragment"
-            app:destination="@id/SignUpCodeFragment" />
-        <action
-            android:id="@+id/action_FirstFragment_to_RecoverPassword"
-            app:destination="@id/recoverPasswordFragment" />
-    </fragment>
     <fragment
         android:id="@+id/SignUpCodeFragment"
         android:name="ar.edu.uade.deremate.fragment.SignupCodeFragment"

@@ -12,15 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import javax.inject.Inject;
 
 import ar.edu.uade.deremate.R;
-import ar.edu.uade.deremate.repository.auth.AuthRepository;
-import ar.edu.uade.deremate.repository.auth.AuthServiceCallback;
+import ar.edu.uade.deremate.data.repository.auth.AuthRepository;
+import ar.edu.uade.deremate.data.repository.auth.AuthServiceCallback;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class SignupCodeFragment extends Fragment {
 
     private EditText signupCodeInput;
@@ -29,16 +30,6 @@ public class SignupCodeFragment extends Fragment {
     @Inject
     AuthRepository authRepository;
 
-    public SignupCodeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment RecoverPasswordFragment.
-     */
     public static SignupCodeFragment newInstance() {
         SignupCodeFragment fragment = new SignupCodeFragment();
         Bundle args = new Bundle();

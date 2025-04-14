@@ -1,4 +1,4 @@
-package ar.edu.uade.deremate.repository.auth;
+package ar.edu.uade.deremate.data.repository.auth;
 
 public interface AuthServiceCallback {
     void onSuccess();

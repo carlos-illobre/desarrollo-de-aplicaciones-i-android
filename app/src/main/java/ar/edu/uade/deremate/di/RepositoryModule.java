@@ -1,13 +1,12 @@
 package ar.edu.uade.deremate.di;
 
-import javax.inject.Singleton;
-
-import ar.edu.uade.deremate.repository.auth.AuthRepository;
-import ar.edu.uade.deremate.repository.auth.AuthRetrofitRepository;
+import ar.edu.uade.deremate.data.repository.auth.AuthRepository;
+import ar.edu.uade.deremate.data.repository.auth.AuthRetrofitRepository;
 import dagger.Binds;
 import dagger.Module;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
+import javax.inject.Singleton;
 
 @Module
 @InstallIn(SingletonComponent.class)
