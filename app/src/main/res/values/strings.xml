@@ -2,10 +2,16 @@
     <string name="app_name">DeRemate</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="first_fragment_label">Menú</string>
+    <string name="signup_code_label">Confirmá tu registro</string>
+    <string name="main_menu_label">Elegí una opción para navegar</string>
+
+    <string name="signup_code_input_text">Signup Code Input</string>
+
+    <string name="signUpCodeTitleText">Ingresá el código que te enviamos por email</string>
+    <string name="cancelSignUpCodeText">Cancelar</string>
+    <string name="acceptSignupCodeText">Aceptar</string>
+    <string name="signup_code_error">El código debe ser numérico de 6 dígitos</string>
 
     <string name="recover_password_title">Recuperar Clave</string>
     <string name="recover_password_email">Email:</string>
