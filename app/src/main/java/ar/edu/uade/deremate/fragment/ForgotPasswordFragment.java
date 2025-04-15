@@ -19,12 +19,12 @@ import javax.inject.Inject;
 
 import ar.edu.uade.deremate.R;
 import ar.edu.uade.deremate.data.repository.auth.AuthRepository;
-import ar.edu.uade.deremate.data.repository.auth.AuthServiceCallback;
 import ar.edu.uade.deremate.data.api.model.RecoverPasswordRequest;
+import ar.edu.uade.deremate.data.repository.auth.AuthServiceCallback;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class RecoverPasswordFragment extends Fragment {
+public class ForgotPasswordFragment extends Fragment {
 
     private EditText emailInput;
     private EditText passwordInput;
@@ -107,9 +107,9 @@ public class RecoverPasswordFragment extends Fragment {
                 .setPassword(password)
                 .setPasswordConfirmation(confirmPassword);
 
-        this.authRepository.recoverPassword(request, new AuthServiceCallback() {
+        this.authRepository.recoverPassword(request, new AuthServiceCallback<Void>() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(Void response) {
                 Toast.makeText(getActivity(), "Signup confirmed successfully", Toast.LENGTH_SHORT).show();
             }
 

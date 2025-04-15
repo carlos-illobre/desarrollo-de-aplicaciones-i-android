@@ -86,9 +86,9 @@ public class SignupCodeFragment extends Fragment {
     }
 
     private void confirmSignup(String signupCode) {
-        authRepository.confirmSignup(signupCode, new AuthServiceCallback() {
+        authRepository.confirmSignup(signupCode, new AuthServiceCallback<Void>() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(Void response) {
                 Toast.makeText(getActivity(), "Signup confirmed successfully", Toast.LENGTH_SHORT).show();
             }
 

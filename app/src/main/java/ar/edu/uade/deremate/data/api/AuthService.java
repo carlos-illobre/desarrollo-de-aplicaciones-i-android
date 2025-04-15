@@ -1,12 +1,18 @@
 package ar.edu.uade.deremate.data.api;
 
 import ar.edu.uade.deremate.data.api.model.ConfirmSignupRequest;
+import ar.edu.uade.deremate.data.api.model.LoginRequest;
+import ar.edu.uade.deremate.data.api.model.LoginResponse;
 import ar.edu.uade.deremate.data.api.model.RecoverPasswordRequest;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface AuthService {
+
+    @POST("/auth/signin")
+    Call<LoginResponse> signin(@Body LoginRequest request);
+
     @POST("/auth/signup/confirm")
     Call<Void> confirmSignup(@Body ConfirmSignupRequest request);
 

@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "My First Application"
+rootProject.name = "DeRemate"
 include(":app")
