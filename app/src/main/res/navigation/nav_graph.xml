@@ -3,23 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/recoverPasswordFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="ar.edu.uade.deremate.fragment.LoginFragment"
         android:label="@string/login_label"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_Login_to_SignUp"
+            app:destination="@id/signUpCodeFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_ForgotPassword"
+            app:destination="@id/forgotPasswordFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/signUpCodeFragment"
         android:name="ar.edu.uade.deremate.fragment.SignupCodeFragment"
         android:label="@string/signup_code_label"
-        tools:layout="@layout/fragment_signup_code_input"/>
+        tools:layout="@layout/fragment_signup_code_input" />
 
     <fragment
-        android:id="@+id/recoverPasswordFragment"
-        android:name="ar.edu.uade.deremate.fragment.RecoverPasswordFragment"
+        android:id="@+id/forgotPasswordFragment"
+        android:name="ar.edu.uade.deremate.fragment.ForgotPasswordFragment"
         android:label="@string/recover_password_label"
         tools:layout="@layout/fragment_recover_password" />
 

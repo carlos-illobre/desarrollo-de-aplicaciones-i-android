@@ -7,6 +7,8 @@ import javax.inject.Singleton;
 
 import ar.edu.uade.deremate.data.api.AuthService;
 import ar.edu.uade.deremate.data.api.model.ConfirmSignupRequest;
+import ar.edu.uade.deremate.data.api.model.LoginRequest;
+import ar.edu.uade.deremate.data.api.model.LoginResponse;
 import ar.edu.uade.deremate.data.api.model.RecoverPasswordRequest;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,11 +25,28 @@ public class AuthRetrofitRepository implements AuthRepository{
     }
 
     @Override
-    public void confirmSignup(String signupCode, AuthServiceCallback callback) {
+    public void login(String email, String password, AuthServiceCallback<LoginResponse> callback) {
+        authService.signin(new LoginRequest(email, password)).enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
+                assert response.body() != null;
+                callback.onSuccess(new LoginResponse(response.body().getAccessToken()));
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
+                callback.onError(t);
+            }
+        });
+
+    }
+
+    @Override
+    public void confirmSignup(String signupCode, AuthServiceCallback<Void> callback) {
         authService.confirmSignup(new ConfirmSignupRequest(signupCode)).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                callback.onSuccess();
+                callback.onSuccess(null);
             }
 
             @Override
@@ -38,11 +57,11 @@ public class AuthRetrofitRepository implements AuthRepository{
     }
 
     @Override
-    public void recoverPassword(RecoverPasswordRequest request, AuthServiceCallback callback) {
+    public void recoverPassword(RecoverPasswordRequest request, AuthServiceCallback<Void> callback) {
         authService.recoverPassword(request).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                callback.onSuccess();
+                callback.onSuccess(null);
             }
 
             @Override
