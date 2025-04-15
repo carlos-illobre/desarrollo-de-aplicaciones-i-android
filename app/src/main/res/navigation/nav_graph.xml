@@ -6,18 +6,21 @@
     app:startDestination="@id/recoverPasswordFragment">
 
     <fragment
-        android:id="@+id/SignUpCodeFragment"
+        android:id="@+id/loginFragment"
+        android:name="ar.edu.uade.deremate.fragment.LoginFragment"
+        android:label="@string/login_label"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/signUpCodeFragment"
         android:name="ar.edu.uade.deremate.fragment.SignupCodeFragment"
         android:label="@string/signup_code_label"
-        tools:layout="@layout/fragment_signup_code_input">
+        tools:layout="@layout/fragment_signup_code_input"/>
 
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/action_FirstFragment_to_SecondFragment" />
-    </fragment>
     <fragment
         android:id="@+id/recoverPasswordFragment"
         android:name="ar.edu.uade.deremate.fragment.RecoverPasswordFragment"
-        android:label="@string/fragment_recover_password"
+        android:label="@string/recover_password_label"
         tools:layout="@layout/fragment_recover_password" />
+
 </navigation>

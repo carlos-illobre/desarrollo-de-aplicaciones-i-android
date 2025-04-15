@@ -39,6 +39,7 @@ public class TokenRepository {
         this.encryptedPrefs = prefs;
     }
 
+
     public void saveToken(String token) {
         encryptedPrefs.edit().putString(KEY_JWT_TOKEN, token).apply();
     }

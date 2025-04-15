@@ -1,7 +1,6 @@
-package ar.edu.uade.deremate.fragments;
+package ar.edu.uade.deremate.fragment;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,15 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import ar.edu.uade.deremate.MainActivity;
 import ar.edu.uade.deremate.R;
-
-import androidx.lifecycle.ViewModelProvider;
 
 import org.json.JSONObject;
 
@@ -39,23 +33,17 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class LoginFragment extends Fragment {
     private EditText emailInput, passwordInput;
     private Button loginButton;
-    private TextView registerButton, forgotPasswordButton, messageText;
+    private TextView registerButton;
+    private TextView forgotPasswordButton;
+    private TextView messageText;
     @Inject
     TokenRepository tokenRepository;
 
     public static final String BASE_URL = "http://10.0.2.2:3000";
 
-
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_login, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         emailInput = view.findViewById(R.id.emailInput);
         passwordInput = view.findViewById(R.id.passwordInput);
@@ -65,27 +53,38 @@ public class LoginFragment extends Fragment {
         messageText = view.findViewById(R.id.messageText);
 
         loginButton.setEnabled(false);
+
+        setupListeners();
+        checkQueryStringMessage();
+
+        return view;
+    }
+
+
+    private void setupListeners() {
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validateInputs();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+
         emailInput.addTextChangedListener(textWatcher);
         passwordInput.addTextChangedListener(textWatcher);
 
-        loginButton.setOnClickListener(v -> attemptLogin());
+        //loginButton.setOnClickListener(v -> attemptLogin());
         registerButton.setOnClickListener(v -> navigateToRegister());
         forgotPasswordButton.setOnClickListener(v -> navigateToForgotPassword());
-
-        checkQueryStringMessage();
-    }
-
-    private final TextWatcher textWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            validateInputs();
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {}
     };
 
     private void validateInputs() {

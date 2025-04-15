@@ -1,11 +1,9 @@
 package ar.edu.uade.deremate.di;
-
 import android.content.Context;
-
-import ar.edu.uade.deremate.data.repository.token.TokenRepository;
 
 import javax.inject.Singleton;
 
+import ar.edu.uade.deremate.data.repository.token.TokenRepository;
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
