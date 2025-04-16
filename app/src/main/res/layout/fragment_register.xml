@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".RegisterFragment">
+    tools:context=".fragment.RegisterFragment">
 
     <TextView
         android:id="@+id/textView3"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/nombre"
         android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/editTextNombreRegister"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:text="@string/apellido"
         android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/editTextApellidoRegister"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:text="@string/email"
         android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/editTextEmailRegister"
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:text="@string/contrase_a"
         android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/editTextPasswordRegister"
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:text="@string/confirmar_contrase_a"
         android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/editTextPasswordRegister2"
@@ -96,7 +96,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/cancelar"
+            android:text="Cancelar"
             app:rippleColor="#BDBDBD" />
 
         <Button
@@ -104,8 +104,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/registrarse"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:text="@string/registrarse" />
     </LinearLayout>
 
 </LinearLayout>
