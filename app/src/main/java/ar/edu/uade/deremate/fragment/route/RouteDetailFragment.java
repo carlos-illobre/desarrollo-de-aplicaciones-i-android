@@ -43,13 +43,15 @@ public class RouteDetailFragment extends Fragment {
         if (getArguments() != null) {
             RouteResponse route = getArguments().getParcelable(ARG_ROUTE);
 
-            TextView nameTextView = view.findViewById(R.id.tv_route_name);
-            TextView descTextView = view.findViewById(R.id.tv_route_description);
+            TextView packTextView = view.findViewById(R.id.tv_route_package_id);
+            TextView wareTextView = view.findViewById(R.id.tv_route_warehouse);
+            TextView destTextView = view.findViewById(R.id.tv_route_destination_neighborhood);
 
             assert route != null;
 
-            nameTextView.setText(route.getName());
-            descTextView.setText(route.getDescription());
+            packTextView.setText(route.getWarehouse());
+            wareTextView.setText(route.getDestinationNeighborhood());
+            destTextView.setText(route.getDestinationNeighborhood());
         }
     }
 }

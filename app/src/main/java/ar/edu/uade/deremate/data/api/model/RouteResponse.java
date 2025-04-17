@@ -6,37 +6,37 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class RouteResponse implements Parcelable {
-    private String id;
-    private String name;
-    private String description;
+    private String packageId;
+    private String warehouse;
+    private String destinationNeighborhood;
 
-    public RouteResponse(String id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
+    public RouteResponse(String packageId, String warehouse, String destinationNeighborhood) {
+        this.packageId = packageId;
+        this.warehouse = warehouse;
+        this.destinationNeighborhood = destinationNeighborhood;
     }
 
-    public String getId() {
-        return id;
+    public String getPackageId() {
+        return packageId;
     }
 
-    public String getName() {
-        return name;
+    public String getWarehouse() {
+        return warehouse;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDestinationNeighborhood() {
+        return destinationNeighborhood;
     }
 
     @Override
     public String toString() {
-        return "["+ id + "] " + name;
+        return warehouse + " ["+ packageId + "]";
     }
 
     protected RouteResponse(Parcel in) {
-        id = in.readString();
-        name = in.readString();
-        description = in.readString();
+        packageId = in.readString();
+        warehouse = in.readString();
+        destinationNeighborhood = in.readString();
     }
 
     public static final Creator<RouteResponse> CREATOR = new Creator<RouteResponse>() {
@@ -58,8 +58,8 @@ public class RouteResponse implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(name);
-        dest.writeString(description);
+        dest.writeString(packageId);
+        dest.writeString(warehouse);
+        dest.writeString(destinationNeighborhood);
     }
 }

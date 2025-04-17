@@ -49,8 +49,8 @@ public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.RouteViewH
 
         public RouteViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.tv_route_name);
-            descriptionTextView = itemView.findViewById(R.id.tv_route_description);
+            nameTextView = itemView.findViewById(R.id.tv_route_package_id);
+            descriptionTextView = itemView.findViewById(R.id.tv_route_warehouse);
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION && listener != null) {
@@ -60,8 +60,8 @@ public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.RouteViewH
         }
 
         public void bind(RouteResponse route) {
-            nameTextView.setText(route.getName());
-            descriptionTextView.setText(route.getDescription());
+            nameTextView.setText(route.toString());
+            descriptionTextView.setText(route.getDestinationNeighborhood());
         }
     }
 }
