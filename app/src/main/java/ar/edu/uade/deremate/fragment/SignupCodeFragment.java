@@ -3,6 +3,7 @@ package ar.edu.uade.deremate.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -77,9 +78,6 @@ public class SignupCodeFragment extends Fragment {
 
         cancelButton.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
         acceptButton.setOnClickListener(v -> {
-            Log.d("SignupCodeFragment", "Accept button clicked");
-            Toast.makeText(getActivity(), "Accept button clicked", Toast.LENGTH_SHORT).show();
-
             String signupCode = signupCodeInput.getText().toString();
             confirmSignup(signupCode);
         });
@@ -90,11 +88,12 @@ public class SignupCodeFragment extends Fragment {
             @Override
             public void onSuccess(Void response) {
                 Toast.makeText(getActivity(), "Signup confirmed successfully", Toast.LENGTH_SHORT).show();
+                NavHostFragment.findNavController(SignupCodeFragment.this).navigate(R.id.action_signUpCodeFragmentToLoginFragment);
             }
 
             @Override
             public void onError(Throwable error) {
-                Log.e("SignupCodeFragment", "API call failed",error);
+                Log.e("SignupCodeFragment", "API call failed", error);
                 Toast.makeText(getActivity(), "Failed to confirm signup", Toast.LENGTH_SHORT).show();
             }
         });

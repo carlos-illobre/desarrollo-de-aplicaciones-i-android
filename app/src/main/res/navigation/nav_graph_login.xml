@@ -22,8 +22,11 @@
         android:id="@+id/signUpCodeFragment"
         android:name="ar.edu.uade.deremate.fragment.SignupCodeFragment"
         android:label="@string/signup_code_label"
-        tools:layout="@layout/fragment_signup_code_input" />
-
+        tools:layout="@layout/fragment_signup_code_input">
+        <action
+            android:id="@+id/action_signUpCodeFragmentToLoginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="ar.edu.uade.deremate.fragment.ForgotPasswordFragment"

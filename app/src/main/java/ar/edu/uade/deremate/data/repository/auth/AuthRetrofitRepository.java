@@ -16,7 +16,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 @Singleton
-public class AuthRetrofitRepository implements AuthRepository{
+public class AuthRetrofitRepository implements AuthRepository {
 
     private final AuthService authService;
 
@@ -30,8 +30,11 @@ public class AuthRetrofitRepository implements AuthRepository{
         authService.signin(new LoginRequest(email, password)).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
-                assert response.body() != null;
-                callback.onSuccess(new LoginResponse(response.body().getAccessToken()));
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(new LoginResponse(response.body().getAccessToken()));
+                } else {
+                    callback.onError(new Exception("There was an error with your login, please try again"));
+                }
             }
 
             @Override
@@ -47,7 +50,12 @@ public class AuthRetrofitRepository implements AuthRepository{
         authService.confirmSignup(new ConfirmSignupRequest(signupCode)).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                callback.onSuccess(null);
+                if (response.isSuccessful()) {
+                    callback.onSuccess(null);
+                } else {
+                    callback.onError(new Exception(String.format("API error: %s - %s ",
+                            response.code(), response.message())));
+                }
             }
 
             @Override
@@ -62,7 +70,12 @@ public class AuthRetrofitRepository implements AuthRepository{
         authService.recoverPassword(request).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                callback.onSuccess(null);
+                if (response.isSuccessful()) {
+                    callback.onSuccess(null);
+                } else {
+                    callback.onError(new Exception(String.format("API error: %s - %s ",
+                            response.code(), response.message())));
+                }
             }
 
             @Override
@@ -73,15 +86,20 @@ public class AuthRetrofitRepository implements AuthRepository{
     }
 
     @Override
-    public void register(SignUpRequest request, AuthServiceCallback<Void> callback){
+    public void register(SignUpRequest request, AuthServiceCallback<Void> callback) {
         authService.signUp(request).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                callback.onSuccess(null);
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(null);
+                } else {
+                    callback.onError(new Exception(String.format("API error: %s - %s ",
+                            response.code(), response.message())));
+                }
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                 callback.onError(t);
             }
         });
