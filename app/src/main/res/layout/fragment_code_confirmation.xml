@@ -13,6 +13,7 @@
         android:text="Ingresa el código"
         android:textSize="16sp" />
 
+    <!-- LinearLayout para los 6 campos de código -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -88,22 +89,15 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/verify_button"
+        android:id="@+id/accept_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Verificar" />
 
-    <TextView
-        android:id="@+id/go_back_text"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Volver"
-        android:textSize="14sp"
-        android:layout_marginTop="16dp" />
+        android:text="Cancelar" />
 
 </LinearLayout>
-
-
-
-
-

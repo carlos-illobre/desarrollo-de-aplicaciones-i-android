@@ -19,16 +19,21 @@
     </fragment>
 
     <fragment
-        android:id="@+id/signUpCodeFragment"
-        android:name="ar.edu.uade.deremate.fragment.SignupCodeFragment"
+        android:id="@+id/codeConfirmationFragment"
+        android:name="ar.edu.uade.deremate.fragment.CodeConfirmationFragment"
         android:label="@string/signup_code_label"
-        tools:layout="@layout/fragment_signup_code_input" />
+        tools:layout="@layout/fragment_code_confirmation" >
+        <action
+            android:id="@+id/action_codeConfirmationFragment_to_historialFragment2"
+            app:destination="@id/historialFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="ar.edu.uade.deremate.fragment.ForgotPasswordFragment"
         android:label="@string/recover_password_label"
         tools:layout="@layout/fragment_recover_password" />
+
     <fragment
         android:id="@+id/registerFragment"
         android:name="ar.edu.uade.deremate.fragment.RegisterFragment"
@@ -36,7 +41,25 @@
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_signUpCodeFragment"
-            app:destination="@id/signUpCodeFragment" />
+            app:destination="@id/codeConfirmationFragment" />
     </fragment>
+
+    <!-- Historial Fragment -->
+    <fragment
+        android:id="@+id/historialFragment"
+        android:name="ar.edu.uade.deremate.fragment.HistorialFragment"
+        android:label="Historial"
+        tools:layout="@layout/fragment_historial">
+        <action
+            android:id="@+id/action_historialFragment_to_detalleEntregaFragment"
+            app:destination="@id/detalleEntregaFragment" />
+    </fragment>
+
+    <!-- Detalle Entrega Fragment (sin arguments) -->
+    <fragment
+        android:id="@+id/detalleEntregaFragment"
+        android:name="ar.edu.uade.deremate.fragment.DetalleEntregaFragment"
+        android:label="Detalle Entrega"
+        tools:layout="@layout/fragment_detalle_entrega" />
 
 </navigation>
