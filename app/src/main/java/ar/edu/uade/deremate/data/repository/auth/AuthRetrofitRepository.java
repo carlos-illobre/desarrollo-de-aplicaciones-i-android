@@ -10,6 +10,7 @@ import ar.edu.uade.deremate.data.api.model.ConfirmSignupRequest;
 import ar.edu.uade.deremate.data.api.model.LoginRequest;
 import ar.edu.uade.deremate.data.api.model.LoginResponse;
 import ar.edu.uade.deremate.data.api.model.RecoverPasswordRequest;
+import ar.edu.uade.deremate.data.api.model.SignUpRequest;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -66,6 +67,21 @@ public class AuthRetrofitRepository implements AuthRepository{
 
             @Override
             public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    @Override
+    public void register(SignUpRequest request, AuthServiceCallback<Void> callback){
+        authService.signUp(request).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                callback.onSuccess(null);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
                 callback.onError(t);
             }
         });

@@ -77,7 +77,7 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(v -> attemptLogin());
         registerButton.setOnClickListener(v ->
                 NavHostFragment.findNavController(LoginFragment.this)
-                        .navigate(R.id.action_Login_to_SignUp));
+                        .navigate(R.id.action_loginFragment_to_registerFragment));
         forgotPasswordButton.setOnClickListener(v ->
                 NavHostFragment.findNavController(LoginFragment.this)
                 .navigate(R.id.action_FirstFragment_to_ForgotPassword));
