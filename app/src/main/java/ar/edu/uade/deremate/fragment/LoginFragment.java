@@ -79,7 +79,7 @@ public class LoginFragment extends Fragment {
             }
         };
 
-        emailInput.addTextChangedListener(textWatcher);
+        /*emailInput.addTextChangedListener(textWatcher);
         passwordInput.addTextChangedListener(textWatcher);
 
         loginButton.setOnClickListener(v -> attemptLogin());
@@ -88,7 +88,7 @@ public class LoginFragment extends Fragment {
                         .navigate(R.id.action_loginFragment_to_registerFragment));
         forgotPasswordButton.setOnClickListener(v ->
                 NavHostFragment.findNavController(LoginFragment.this)
-                .navigate(R.id.action_FirstFragment_to_ForgotPassword));
+                .navigate(R.id.action_FirstFragment_to_ForgotPassword));*/
     };
 
     private void validateInputs() {
