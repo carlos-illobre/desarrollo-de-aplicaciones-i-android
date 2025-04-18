@@ -3,6 +3,7 @@ package ar.edu.uade.deremate.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -110,7 +111,8 @@ public class ForgotPasswordFragment extends Fragment {
         this.authRepository.recoverPassword(request, new AuthServiceCallback<Void>() {
             @Override
             public void onSuccess(Void response) {
-                Toast.makeText(getActivity(), "Signup confirmed successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Password reset requested successfully", Toast.LENGTH_SHORT).show();
+                NavHostFragment.findNavController(ForgotPasswordFragment.this).navigate(R.id.action_forgotPasswordFragment_to_passwordConfirmationFragment);
             }
 
             @Override
