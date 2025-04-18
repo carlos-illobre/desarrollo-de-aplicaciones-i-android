@@ -1,9 +1,11 @@
 package ar.edu.uade.deremate;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -15,15 +17,28 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import ar.edu.uade.deremate.data.api.RouteService;
 import ar.edu.uade.deremate.data.api.model.RouteResponse;
+import ar.edu.uade.deremate.data.repository.auth.AuthServiceCallback;
+import ar.edu.uade.deremate.data.repository.route.RouteRepository;
+import ar.edu.uade.deremate.data.repository.token.TokenRepository;
 import ar.edu.uade.deremate.fragment.route.RouteDetailFragment;
 import ar.edu.uade.deremate.fragment.route.RouteSelectedListener;
 import ar.edu.uade.deremate.fragment.route.RoutesFragment;
+import dagger.hilt.android.AndroidEntryPoint;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+@AndroidEntryPoint
 public class RoutesActivity extends AppCompatActivity implements RouteSelectedListener {
 
     private BottomNavigationView bottomNavLeft;
     private BottomNavigationView bottomNavRight;
+    @Inject
+    RouteRepository routeRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +71,19 @@ public class RoutesActivity extends AppCompatActivity implements RouteSelectedLi
     }
 
     private void loadRoutesAndShowFragment() {
-        ArrayList<RouteResponse> routes = new ArrayList<>();
-        routes.add(new RouteResponse("1", "Ruta de Monte", "Ascenso con vista panoramica"));
-        routes.add(new RouteResponse("2", "Ruta Costera", "Recorrido con vista al mar"));
-        routes.add(new RouteResponse("3", "Ruta Forestal", "Sendero a traves de bosque nativo"));
-
-        showRoutesFragment(routes);
+        routeRepository.getRoutes(new AuthServiceCallback<>() {
+            @Override
+            public void onSuccess(List<RouteResponse> routes) {
+                showRoutesFragment(routes);
+            }
+            @Override
+            public void onError(Throwable error) {
+                Toast.makeText(RoutesActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private void showRoutesFragment(ArrayList<RouteResponse> routes) {
+    private void showRoutesFragment(List<RouteResponse> routes) {
         RoutesFragment routesFragment = RoutesFragment.newInstance(routes);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, routesFragment);

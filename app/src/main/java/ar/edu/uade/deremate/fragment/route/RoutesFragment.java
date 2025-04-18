@@ -28,10 +28,10 @@ public class RoutesFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static RoutesFragment newInstance(@NonNull ArrayList<RouteResponse> routes) {
+    public static RoutesFragment newInstance(@NonNull List<RouteResponse> routes) {
         RoutesFragment fragment = new RoutesFragment();
         Bundle args = new Bundle();
-        args.putParcelableArrayList(ARG_ROUTES, routes);
+        args.putParcelableArrayList(ARG_ROUTES, new ArrayList<>(routes));
         fragment.setArguments(args);
         return fragment;
     }
