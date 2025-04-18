@@ -3,6 +3,7 @@ package ar.edu.uade.deremate.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -90,6 +91,7 @@ public class SignupCodeFragment extends Fragment {
             @Override
             public void onSuccess(Void response) {
                 Toast.makeText(getActivity(), "Signup confirmed successfully", Toast.LENGTH_SHORT).show();
+                NavHostFragment.findNavController(SignupCodeFragment.this).navigate(R.id.action_signupCodeConfirmationFragment_to_loginFragment);
             }
 
             @Override

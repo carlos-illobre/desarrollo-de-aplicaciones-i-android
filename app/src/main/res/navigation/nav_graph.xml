@@ -19,20 +19,24 @@
     </fragment>
 
     <fragment
-        android:id="@+id/codeConfirmationFragment"
+        android:id="@+id/signUpCodeFragment"
         android:name="ar.edu.uade.deremate.fragment.CodeConfirmationFragment"
         android:label="@string/signup_code_label"
-        tools:layout="@layout/fragment_code_confirmation" >
+        tools:layout="@layout/fragment_signup_code_input" >
         <action
-            android:id="@+id/action_codeConfirmationFragment_to_historialFragment2"
-            app:destination="@id/historialFragment" />
+            android:id="@+id/action_signupCodeConfirmationFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="ar.edu.uade.deremate.fragment.ForgotPasswordFragment"
         android:label="@string/recover_password_label"
-        tools:layout="@layout/fragment_recover_password" />
+        tools:layout="@layout/fragment_recover_password" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_passwordConfirmationFragment"
+            app:destination="@id/passwordConfirmationFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/registerFragment"
@@ -41,7 +45,17 @@
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_signUpCodeFragment"
-            app:destination="@id/codeConfirmationFragment" />
+            app:destination="@id/signUpCodeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/passwordConfirmationFragment"
+        android:name="ar.edu.uade.deremate.fragment.CodeConfirmationFragment"
+        android:label="@string/recover_password_confirmation_label"
+        tools:layout="@layout/fragment_code_confirmation" >
+        <action
+            android:id="@+id/action_codeConfirmationFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <!-- Historial Fragment -->

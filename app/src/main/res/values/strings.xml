@@ -33,6 +33,7 @@
     <string name="recover_password_email_format_error">Debe ingresar un email valido</string>
     <string name="recover_password_match_error">La claves no coinciden</string>
     <string name="recover_password_label">Recuperación de Clave</string>
+    <string name="recover_password_confirmation_label">Confirmá tu cambio de clave</string>
     <string name="otpHint">123456</string>
 
     <string name="login_label">Login</string>

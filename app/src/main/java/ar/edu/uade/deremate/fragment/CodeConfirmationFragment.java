@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import javax.inject.Inject;
 
@@ -42,7 +43,7 @@ public class CodeConfirmationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflar el layout para este fragmento
-        View view = inflater.inflate(R.layout.fragment_signup_code_input, container, false);
+        View view = inflater.inflate(R.layout.fragment_code_confirmation, container, false);
 
         // Inicialización de los campos EditText y botones
         codeDigit1 = view.findViewById(R.id.code_digit_1);
@@ -65,7 +66,7 @@ public class CodeConfirmationFragment extends Fragment {
 
             // Obtener el código completo
             String signupCode = getSignupCode();
-            confirmSignup(signupCode);
+            confirmPasswordReset(signupCode);
         });
 
         return view;
@@ -105,23 +106,21 @@ public class CodeConfirmationFragment extends Fragment {
 
     // Obtener el código completo a partir de los 6 dígitos
     private String getSignupCode() {
-        StringBuilder code = new StringBuilder();
-        code.append(codeDigit1.getText().toString());
-        code.append(codeDigit2.getText().toString());
-        code.append(codeDigit3.getText().toString());
-        code.append(codeDigit4.getText().toString());
-        code.append(codeDigit5.getText().toString());
-        code.append(codeDigit6.getText().toString());
-
-        return code.toString();
+        return codeDigit1.getText().toString() +
+                codeDigit2.getText().toString() +
+                codeDigit3.getText().toString() +
+                codeDigit4.getText().toString() +
+                codeDigit5.getText().toString() +
+                codeDigit6.getText().toString();
     }
 
     // Confirmar el registro con el código ingresado
-    private void confirmSignup(String signupCode) {
-        authRepository.confirmSignup(signupCode, new AuthServiceCallback<Void>() {
+    private void confirmPasswordReset(String otp) {
+        authRepository.confirmPasswordReset(otp, new AuthServiceCallback<Void>() {
             @Override
             public void onSuccess(Void response) {
-                Toast.makeText(getActivity(), "Signup confirmed successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Password reset confirmed successfully", Toast.LENGTH_SHORT).show();
+                NavHostFragment.findNavController(CodeConfirmationFragment.this).navigate(R.id.action_codeConfirmationFragment_to_loginFragment);
             }
 
             @Override
