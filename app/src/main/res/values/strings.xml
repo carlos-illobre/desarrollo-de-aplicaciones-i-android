@@ -6,6 +6,11 @@
     <string name="routes">Rutas</string>
     <string name="logout">Salir</string>
 
+    <string name="route">Ruta</string>
+    <string name="packageId">Paquete</string>
+    <string name="warehouse">Almacen</string>
+    <string name="destination_neighborhood">Barrio Destino</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">Menú</string>
     <string name="signup_code_label">Confirmá tu registro</string>

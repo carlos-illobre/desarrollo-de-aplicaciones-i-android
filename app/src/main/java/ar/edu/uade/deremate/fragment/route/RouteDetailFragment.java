@@ -10,6 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import ar.edu.uade.deremate.R;
 import ar.edu.uade.deremate.data.api.model.RouteResponse;
@@ -40,18 +44,30 @@ public class RouteDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
+
         if (getArguments() != null) {
             RouteResponse route = getArguments().getParcelable(ARG_ROUTE);
-
-            TextView packTextView = view.findViewById(R.id.tv_route_package_id);
-            TextView wareTextView = view.findViewById(R.id.tv_route_warehouse);
-            TextView destTextView = view.findViewById(R.id.tv_route_destination_neighborhood);
-
-            assert route != null;
-
-            packTextView.setText(route.getWarehouse());
-            wareTextView.setText(route.getDestinationNeighborhood());
-            destTextView.setText(route.getDestinationNeighborhood());
+            if (route != null) {
+                updateUI(route);
+            }
         }
+
+        FloatingActionButton fab = view.findViewById(R.id.fab_action);
+        fab.setOnClickListener(v -> {
+            Toast.makeText(requireContext(), "Iniciar Navegacion", Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void updateUI(@NonNull RouteResponse route) {
+        TextView packTextView = getView().findViewById(R.id.tv_route_package_id);
+        TextView wareTextView = getView().findViewById(R.id.tv_route_warehouse);
+        TextView destTextView = getView().findViewById(R.id.tv_route_destination_neighborhood);
+
+        packTextView.setText(route.getPackageId());
+        wareTextView.setText(route.getWarehouse());
+        destTextView.setText(route.getDestinationNeighborhood());
     }
 }
+
