@@ -116,7 +116,7 @@ public class ForgotPasswordFragment extends Fragment {
             @Override
             public void onError(Throwable error) {
                 Log.e("RecoverPasswordFragment", "API call failed",error);
-                Toast.makeText(getActivity(), "Failed to recover password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Failed to sign up, please try again", Toast.LENGTH_SHORT).show();
             }
         });
     }

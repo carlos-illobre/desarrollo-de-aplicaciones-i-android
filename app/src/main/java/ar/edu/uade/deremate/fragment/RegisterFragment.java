@@ -95,7 +95,7 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onError(Throwable error) {
                 Log.e("RegisterFragment", "API call failed",error);
-                Toast.makeText(getActivity(), "Failed to register", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Failed to register, please try again", Toast.LENGTH_SHORT).show();
             }
         });
     }

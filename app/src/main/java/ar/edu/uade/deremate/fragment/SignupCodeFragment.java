@@ -94,7 +94,7 @@ public class SignupCodeFragment extends Fragment {
             @Override
             public void onError(Throwable error) {
                 Log.e("SignupCodeFragment", "API call failed", error);
-                Toast.makeText(getActivity(), "Failed to confirm signup", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Failed to confirm signup, please try again", Toast.LENGTH_SHORT).show();
             }
         });
     }

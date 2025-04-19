@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">DeRemate</string>
-    <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">Menú</string>
     <string name="signup_code_label">Confirmá tu registro</string>
