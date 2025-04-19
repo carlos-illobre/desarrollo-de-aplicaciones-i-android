@@ -5,10 +5,23 @@
     android:layout_height="match_parent"
     tools:context=".fragment.route.RoutesFragment">
 
+    <!-- Header TextView -->
+    <TextView
+        android:id="@+id/tv_rutas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rutas"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="top|center_horizontal"
+        android:padding="16dp"
+        android:textColor="@android:color/black" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_routes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
         android:padding="8dp"
         android:clipToPadding="false" />
 

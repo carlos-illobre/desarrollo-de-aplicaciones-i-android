@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import ar.edu.uade.deremate.data.api.AuthService;
+import ar.edu.uade.deremate.data.api.model.ConfirmPasswordResetRequest;
 import ar.edu.uade.deremate.data.api.model.ConfirmSignupRequest;
 import ar.edu.uade.deremate.data.api.model.LoginRequest;
 import ar.edu.uade.deremate.data.api.model.LoginResponse;
@@ -30,8 +31,11 @@ public class AuthRetrofitRepository implements AuthRepository{
         authService.signin(new LoginRequest(email, password)).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
-                assert response.body() != null;
-                callback.onSuccess(new LoginResponse(response.body().getAccessToken()));
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(new LoginResponse(response.body().getAccessToken()));
+                } else {
+                    callback.onError(new RuntimeException("Login failed: " + response.code() + " " + response.message()));
+                }
             }
 
             @Override
@@ -60,6 +64,21 @@ public class AuthRetrofitRepository implements AuthRepository{
     @Override
     public void recoverPassword(RecoverPasswordRequest request, AuthServiceCallback<Void> callback) {
         authService.recoverPassword(request).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                callback.onSuccess(null);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    @Override
+    public void confirmPasswordReset(String otp, AuthServiceCallback<Void> callback) {
+        authService.confirmPasswordReset(new ConfirmPasswordResetRequest(otp)).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 callback.onSuccess(null);

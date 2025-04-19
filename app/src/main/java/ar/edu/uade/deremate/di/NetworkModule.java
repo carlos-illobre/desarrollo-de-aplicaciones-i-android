@@ -7,6 +7,7 @@ import java.io.File;
 import javax.inject.Singleton;
 
 import ar.edu.uade.deremate.data.api.AuthService;
+import ar.edu.uade.deremate.data.api.EntregaService;
 import ar.edu.uade.deremate.data.api.RouteService;
 import dagger.Module;
 import dagger.Provides;
@@ -67,5 +68,11 @@ public class NetworkModule {
     @Singleton
     RouteService provideRouteService(Retrofit retrofit) {
         return retrofit.create(RouteService.class);
+    }
+
+    @Provides
+    @Singleton
+    EntregaService provideEntregaService(Retrofit retrofit) {
+        return retrofit.create(EntregaService.class);
     }
 }
