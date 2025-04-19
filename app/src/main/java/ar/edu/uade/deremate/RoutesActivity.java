@@ -1,25 +1,18 @@
 package ar.edu.uade.deremate;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import ar.edu.uade.deremate.data.api.RouteService;
 import ar.edu.uade.deremate.data.api.model.RouteResponse;
 import ar.edu.uade.deremate.data.repository.auth.AuthServiceCallback;
 import ar.edu.uade.deremate.data.repository.route.RouteRepository;
@@ -28,9 +21,6 @@ import ar.edu.uade.deremate.fragment.route.RouteDetailFragment;
 import ar.edu.uade.deremate.fragment.route.RouteSelectedListener;
 import ar.edu.uade.deremate.fragment.route.RoutesFragment;
 import dagger.hilt.android.AndroidEntryPoint;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 @AndroidEntryPoint
 public class RoutesActivity extends AppCompatActivity implements RouteSelectedListener {
@@ -39,6 +29,8 @@ public class RoutesActivity extends AppCompatActivity implements RouteSelectedLi
     private BottomNavigationView bottomNavRight;
     @Inject
     RouteRepository routeRepository;
+    @Inject
+    TokenRepository tokenRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +53,22 @@ public class RoutesActivity extends AppCompatActivity implements RouteSelectedLi
 
         bottomNavRight.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.menu_logout) {
-                showLogout();
+                logout();
                 return true;
             }
             return false;
         });
 
         loadRoutesAndShowFragment();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (tokenRepository.isTokenExpired()) {
+            Toast.makeText(this, "Session expired, please login again", Toast.LENGTH_SHORT).show();
+            logout();
+        }
     }
 
     private void loadRoutesAndShowFragment() {
@@ -94,8 +95,17 @@ public class RoutesActivity extends AppCompatActivity implements RouteSelectedLi
         Toast.makeText(this, "Perfil seleccionado", Toast.LENGTH_SHORT).show();
     }
 
-    private void showLogout() {
-        Toast.makeText(this, "Cerrar sesion seleccionado", Toast.LENGTH_SHORT).show();
+    private void logout() {
+        // Clear session data (e.g., token)
+        tokenRepository.clearToken();
+
+        // Navigate to the login screen
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear back stack
+        startActivity(intent);
+
+        // Finish the current activity
+        finish();
     }
 
 

@@ -112,7 +112,7 @@ public class LoginFragment extends Fragment {
             this.authRepository.login(email, password, new AuthServiceCallback<LoginResponse>() {
                 @Override
                 public void onSuccess(LoginResponse response) {
-                    Toast.makeText(getActivity(), "Signup successful!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Sign in successful!", Toast.LENGTH_SHORT).show();
                     tokenRepository.saveToken(response.getAccessToken());
                     listener.onLoginSuccess();
                 }
