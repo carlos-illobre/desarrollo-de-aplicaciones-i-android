@@ -1,5 +1,6 @@
 package ar.edu.uade.deremate;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -16,10 +17,12 @@ import ar.edu.uade.deremate.databinding.ActivityLoginBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+
+import ar.edu.uade.deremate.fragment.LoginFragment;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginFragment.LoginListener {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityLoginBinding binding;
@@ -48,5 +51,17 @@ public class LoginActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onLoginSuccess() {
+        Intent intent = new Intent(this, RoutesActivity.class);
+
+        // Esto evita que el usuario pueda volver atras presionando el boton de retroceso
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        startActivity(intent);
+
+        finish();
     }
 }
