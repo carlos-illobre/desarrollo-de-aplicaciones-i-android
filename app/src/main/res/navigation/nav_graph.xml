@@ -16,27 +16,26 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_historialFragment"
+            app:destination="@id/historialFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/signUpCodeFragment"
+        android:id="@+id/codeConfirmationFragment"
         android:name="ar.edu.uade.deremate.fragment.CodeConfirmationFragment"
         android:label="@string/signup_code_label"
-        tools:layout="@layout/fragment_signup_code_input" >
+        tools:layout="@layout/fragment_code_confirmation" >
         <action
-            android:id="@+id/action_signupCodeConfirmationFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            android:id="@+id/action_codeConfirmationFragment_to_historialFragment2"
+            app:destination="@id/historialFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="ar.edu.uade.deremate.fragment.ForgotPasswordFragment"
         android:label="@string/recover_password_label"
-        tools:layout="@layout/fragment_recover_password" >
-        <action
-            android:id="@+id/action_forgotPasswordFragment_to_passwordConfirmationFragment"
-            app:destination="@id/passwordConfirmationFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_recover_password" />
 
     <fragment
         android:id="@+id/registerFragment"
@@ -45,17 +44,7 @@
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_signUpCodeFragment"
-            app:destination="@id/signUpCodeFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/passwordConfirmationFragment"
-        android:name="ar.edu.uade.deremate.fragment.CodeConfirmationFragment"
-        android:label="@string/recover_password_confirmation_label"
-        tools:layout="@layout/fragment_code_confirmation" >
-        <action
-            android:id="@+id/action_codeConfirmationFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/codeConfirmationFragment" />
     </fragment>
 
     <!-- Historial Fragment -->

@@ -7,6 +7,9 @@ import java.io.File;
 import javax.inject.Singleton;
 
 import ar.edu.uade.deremate.data.api.AuthService;
+import ar.edu.uade.deremate.data.api.EntregaService;
+import ar.edu.uade.deremate.data.repository.entregas.EntregaRepository;
+import ar.edu.uade.deremate.data.repository.entregas.EntregaRetrofitRepository;
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
@@ -21,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 @InstallIn(SingletonComponent.class)
 public class NetworkModule {
-    
+
     @Provides
     @Singleton
     Cache provideCache(@ApplicationContext Context context) {
@@ -35,30 +38,37 @@ public class NetworkModule {
     OkHttpClient provideOkHttpClient(Cache cache) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
-        
+
         return new OkHttpClient.Builder()
-            .addInterceptor(logging)
-            .cache(cache)
-            .addNetworkInterceptor(chain -> chain.proceed(chain.request())
-                .newBuilder()
-                .header("Cache-Control", "public, max-age=60") // Cache por 60 segundos
-                .build())
-            .build();
+                .addInterceptor(logging)
+                .cache(cache)
+                .addNetworkInterceptor(chain -> chain.proceed(chain.request())
+                        .newBuilder()
+                        .header("Cache-Control", "public, max-age=60") // Cache por 60 segundos
+                        .build())
+                .build();
     }
-    
+
     @Provides
     @Singleton
     Retrofit provideRetrofit(OkHttpClient client) {
         return new Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:3000/")
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
+                .baseUrl("http://10.0.2.2:3000/") // Asegúrate de que esta URL es correcta
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
     }
-    
+
     @Provides
     @Singleton
     AuthService provideAuthService(Retrofit retrofit) {
         return retrofit.create(AuthService.class);
     }
+
+    @Provides
+    @Singleton
+    EntregaService provideEntregaService(Retrofit retrofit) {
+        return retrofit.create(EntregaService.class);
+    }
 }
+

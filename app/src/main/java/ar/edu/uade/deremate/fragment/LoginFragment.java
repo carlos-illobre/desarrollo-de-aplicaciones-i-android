@@ -13,7 +13,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+
+import com.google.gson.Gson;
 
 import ar.edu.uade.deremate.R;
 
@@ -71,7 +75,7 @@ public class LoginFragment extends Fragment {
             }
         };
 
-        /*emailInput.addTextChangedListener(textWatcher);
+        emailInput.addTextChangedListener(textWatcher);
         passwordInput.addTextChangedListener(textWatcher);
 
         loginButton.setOnClickListener(v -> attemptLogin());
@@ -80,7 +84,7 @@ public class LoginFragment extends Fragment {
                         .navigate(R.id.action_loginFragment_to_registerFragment));
         forgotPasswordButton.setOnClickListener(v ->
                 NavHostFragment.findNavController(LoginFragment.this)
-                .navigate(R.id.action_FirstFragment_to_ForgotPassword));*/
+                .navigate(R.id.action_FirstFragment_to_ForgotPassword));
     };
 
     private void validateInputs() {
@@ -106,6 +110,9 @@ public class LoginFragment extends Fragment {
                 public void onSuccess(LoginResponse response) {
                     Toast.makeText(getActivity(), "Signup successful!", Toast.LENGTH_SHORT).show();
                     tokenRepository.saveToken(response.getAccessToken());
+                    Log.d("LOGIN", "Código de respuesta: " + response.getAccessToken());
+                    NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
+                    navController.navigate(R.id.action_loginFragment_to_historialFragment);
                 }
 
                 @Override

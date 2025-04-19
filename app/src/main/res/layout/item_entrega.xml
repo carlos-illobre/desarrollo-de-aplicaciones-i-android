@@ -1,39 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="12dp"
     android:layout_width="match_parent"
-    android:layout_margin="8dp"
-    android:layout_height="wrap_content"
-    android:elevation="4dp"
-    android:padding="12dp">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/txtCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cliente"
+        android:textStyle="bold"
+        android:textSize="16sp"/>
 
-        <TextView
-            android:id="@+id/tvCliente"
-            android:text="Cliente"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/txtFecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha de entrega"
+        android:textSize="14sp"/>
 
-        <TextView
-            android:id="@+id/tvFecha"
-            android:text="Fecha de Entrega"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="4dp"/>
+    <TextView
+        android:id="@+id/txtEstado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Estado"
+        android:textSize="14sp"/>
 
-        <TextView
-            android:id="@+id/tvEstado"
-            android:text="Estado"
-            android:textStyle="italic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="2dp"/>
+    <TextView
+        android:id="@+id/txtDireccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dirección"
+        android:textSize="14sp"/>
 
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+</LinearLayout>
