@@ -1,5 +1,6 @@
 package ar.edu.uade.deremate.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -35,6 +38,11 @@ public class LoginFragment extends Fragment {
     TokenRepository tokenRepository;
     @Inject
     AuthRepository authRepository;
+    private LoginListener listener;
+
+    public interface LoginListener {
+        void onLoginSuccess();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,7 +88,7 @@ public class LoginFragment extends Fragment {
                         .navigate(R.id.action_loginFragment_to_registerFragment));
         forgotPasswordButton.setOnClickListener(v ->
                 NavHostFragment.findNavController(LoginFragment.this)
-                .navigate(R.id.action_FirstFragment_to_ForgotPassword));
+                        .navigate(R.id.action_FirstFragment_to_ForgotPassword));
     };
 
     private void validateInputs() {
@@ -106,6 +114,7 @@ public class LoginFragment extends Fragment {
                 public void onSuccess(LoginResponse response) {
                     Toast.makeText(getActivity(), "Signup successful!", Toast.LENGTH_SHORT).show();
                     tokenRepository.saveToken(response.getAccessToken());
+                    listener.onLoginSuccess();
                 }
 
                 @Override
@@ -118,5 +127,21 @@ public class LoginFragment extends Fragment {
             Log.e("LoginFragment", "Error during login", e);
             Toast.makeText(getActivity(), "Error during login, please try again", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            listener = (LoginListener) context;
+        } catch (ClassCastException e) {
+            throw new RuntimeException(context + " must implement LoginListener", e);
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 }

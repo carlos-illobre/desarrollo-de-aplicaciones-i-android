@@ -47,5 +47,12 @@
     <string name="contrase_a">Contraseña</string>
     <string name="confirmar_contrase_a">Confirmar contraseña</string>
 
+    <string name="entrega_detail">Detalle de Entrega</string>
+    <string name="cliente">Cliente</string>
+    <string name="fecha_entrega">Fecha de Entrega</string>
+    <string name="estado">Estado</string>
+    <string name="direccion">Dirección</string>
+    <string name="entrega_action">Acción de Entrega</string>
+
 
 </resources>

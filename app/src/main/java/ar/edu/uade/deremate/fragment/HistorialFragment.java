@@ -1,6 +1,5 @@
 package ar.edu.uade.deremate.fragment;
 
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,15 +23,13 @@ import javax.inject.Inject;
 
 import ar.edu.uade.deremate.R;
 import ar.edu.uade.deremate.adapter.EntregaAdapter;
-import ar.edu.uade.deremate.data.api.EntregaService;
 import ar.edu.uade.deremate.data.api.model.Entrega;
-
-import ar.edu.uade.deremate.data.repository.entregas.EntregaRetrofitRepository;
 import ar.edu.uade.deremate.data.repository.entregas.EntregaServiceCallback;
-import dagger.hilt.android.AndroidEntryPoint;
 import ar.edu.uade.deremate.data.repository.entregas.EntregaRepository;
+import dagger.hilt.android.AndroidEntryPoint;
+
 @AndroidEntryPoint
-public class HistorialFragment extends Fragment {
+public class HistorialFragment extends Fragment implements EntregaSelectedListener {
 
     private RecyclerView recyclerEntregas;
     private EntregaAdapter adapter;
@@ -39,7 +37,7 @@ public class HistorialFragment extends Fragment {
     private ProgressBar progressBar;
 
     @Inject
-    EntregaRepository entregaRepository;  // Inyecta el repositorio
+    EntregaRepository entregaRepository;
 
     @SuppressLint("MissingInflatedId")
     @Nullable
@@ -50,18 +48,14 @@ public class HistorialFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_historial, container, false);
 
-        // Configurar RecyclerView
         recyclerEntregas = view.findViewById(R.id.recyclerEntregas);
         recyclerEntregas.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Obtener referencia al ProgressBar
         progressBar = view.findViewById(R.id.progressBar);
 
-        // Inicializar adapter y asignarlo al RecyclerView
-        adapter = new EntregaAdapter(listaEntregas);
+        adapter = new EntregaAdapter(listaEntregas, this);
         recyclerEntregas.setAdapter(adapter);
 
-        // Llamar al backend para traer las entregas
         cargarEntregas();
 
         return view;
@@ -96,5 +90,28 @@ public class HistorialFragment extends Fragment {
                 Toast.makeText(getContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onEntregaSelected(Entrega entrega) {
+        // Create a new instance of EntregaDetailFragment
+        EntregaDetailFragment entregaDetailFragment = new EntregaDetailFragment();
+
+        // Create a Bundle to pass data
+        Bundle bundle = new Bundle();
+        bundle.putString("cliente", entrega.getCliente());
+        bundle.putString("fecha_entrega", entrega.getFechaEntrega());
+        bundle.putString("estado", entrega.getEstado());
+        bundle.putString("direccion", entrega.getDireccion());
+
+        // Set the arguments for the fragment
+        entregaDetailFragment.setArguments(bundle);
+
+        // Replace the current fragment with EntregaDetailFragment
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, entregaDetailFragment) // Use the correct container ID
+                .addToBackStack(null) // Optional: Add to back stack to allow navigation back
+                .commit();
     }
 }

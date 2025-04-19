@@ -16,20 +16,13 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_historialFragment"
-            app:destination="@id/historialFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/codeConfirmationFragment"
         android:name="ar.edu.uade.deremate.fragment.CodeConfirmationFragment"
         android:label="@string/signup_code_label"
-        tools:layout="@layout/fragment_code_confirmation" >
-        <action
-            android:id="@+id/action_codeConfirmationFragment_to_historialFragment2"
-            app:destination="@id/historialFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_code_confirmation" />
 
     <fragment
         android:id="@+id/forgotPasswordFragment"
@@ -47,22 +40,5 @@
             app:destination="@id/codeConfirmationFragment" />
     </fragment>
 
-    <!-- Historial Fragment -->
-    <fragment
-        android:id="@+id/historialFragment"
-        android:name="ar.edu.uade.deremate.fragment.HistorialFragment"
-        android:label="Historial"
-        tools:layout="@layout/fragment_historial">
-        <action
-            android:id="@+id/action_historialFragment_to_detalleEntregaFragment"
-            app:destination="@id/detalleEntregaFragment" />
-    </fragment>
-
-    <!-- Detalle Entrega Fragment (sin arguments) -->
-    <fragment
-        android:id="@+id/detalleEntregaFragment"
-        android:name="ar.edu.uade.deremate.fragment.DetalleEntregaFragment"
-        android:label="Detalle Entrega"
-        tools:layout="@layout/fragment_detalle_entrega" />
 
 </navigation>

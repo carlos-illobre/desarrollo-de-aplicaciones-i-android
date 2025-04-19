@@ -1,28 +1,27 @@
 package ar.edu.uade.deremate.adapter;
 
-import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-
 import ar.edu.uade.deremate.R;
 import ar.edu.uade.deremate.data.api.model.Entrega;
+import ar.edu.uade.deremate.fragment.EntregaSelectedListener;
+
 public class EntregaAdapter extends RecyclerView.Adapter<EntregaAdapter.EntregaViewHolder> {
 
     private List<Entrega> entregas;
+    private EntregaSelectedListener listener;
 
-    public EntregaAdapter(List<Entrega> entregas) {
+    public EntregaAdapter(List<Entrega> entregas, EntregaSelectedListener listener) {
         this.entregas = entregas;
+        this.listener = listener;
     }
 
     @NonNull
@@ -44,11 +43,8 @@ public class EntregaAdapter extends RecyclerView.Adapter<EntregaAdapter.EntregaV
         return entregas.size();
     }
 
-    static class EntregaViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtCliente;
-        private TextView txtFecha;
-        private TextView txtEstado;
-        private TextView txtDireccion;
+    class EntregaViewHolder extends RecyclerView.ViewHolder {
+        private TextView txtCliente, txtFecha, txtEstado, txtDireccion;
 
         public EntregaViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,6 +52,13 @@ public class EntregaAdapter extends RecyclerView.Adapter<EntregaAdapter.EntregaV
             txtFecha = itemView.findViewById(R.id.txtFecha);
             txtEstado = itemView.findViewById(R.id.txtEstado);
             txtDireccion = itemView.findViewById(R.id.txtDireccion);
+
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION && listener != null) {
+                    listener.onEntregaSelected(entregas.get(position));
+                }
+            });
         }
 
         public void bind(Entrega entrega) {
