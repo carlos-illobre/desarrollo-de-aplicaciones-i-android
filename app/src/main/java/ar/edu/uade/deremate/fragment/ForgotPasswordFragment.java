@@ -3,6 +3,7 @@ package ar.edu.uade.deremate.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -38,7 +39,7 @@ public class ForgotPasswordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_recover_password, container, false);
 
         emailInput = view.findViewById(R.id.recoverPassword_emailInput);
@@ -110,7 +111,7 @@ public class ForgotPasswordFragment extends Fragment {
         this.authRepository.recoverPassword(request, new AuthServiceCallback<Void>() {
             @Override
             public void onSuccess(Void response) {
-                Toast.makeText(getActivity(), "Signup confirmed successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Password reset requested successfully", Toast.LENGTH_SHORT).show();
             }
 
             @Override

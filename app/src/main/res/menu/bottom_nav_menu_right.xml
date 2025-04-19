@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menu_historial"
+        android:icon="@drawable/ic_historial"
+        android:title="Entregas" />
+
+
+    <item
         android:id="@+id/menu_logout"
         android:icon="@drawable/baseline_exit_to_app_24"
         android:title="@string/logout" />

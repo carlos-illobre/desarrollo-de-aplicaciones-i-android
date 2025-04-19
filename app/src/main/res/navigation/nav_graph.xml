@@ -19,16 +19,17 @@
     </fragment>
 
     <fragment
-        android:id="@+id/signUpCodeFragment"
-        android:name="ar.edu.uade.deremate.fragment.SignupCodeFragment"
+        android:id="@+id/codeConfirmationFragment"
+        android:name="ar.edu.uade.deremate.fragment.CodeConfirmationFragment"
         android:label="@string/signup_code_label"
-        tools:layout="@layout/fragment_signup_code_input" />
+        tools:layout="@layout/fragment_code_confirmation" />
 
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="ar.edu.uade.deremate.fragment.ForgotPasswordFragment"
         android:label="@string/recover_password_label"
         tools:layout="@layout/fragment_recover_password" />
+
     <fragment
         android:id="@+id/registerFragment"
         android:name="ar.edu.uade.deremate.fragment.RegisterFragment"
@@ -36,7 +37,8 @@
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_signUpCodeFragment"
-            app:destination="@id/signUpCodeFragment" />
+            app:destination="@id/codeConfirmationFragment" />
     </fragment>
+
 
 </navigation>
