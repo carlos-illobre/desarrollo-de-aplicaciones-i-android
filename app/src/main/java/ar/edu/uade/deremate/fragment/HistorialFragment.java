@@ -39,7 +39,6 @@ public class HistorialFragment extends Fragment implements EntregaSelectedListen
     @Inject
     EntregaRepository entregaRepository;
 
-    @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -94,20 +93,16 @@ public class HistorialFragment extends Fragment implements EntregaSelectedListen
 
     @Override
     public void onEntregaSelected(Entrega entrega) {
-        // Create a new instance of EntregaDetailFragment
         EntregaDetailFragment entregaDetailFragment = new EntregaDetailFragment();
 
-        // Create a Bundle to pass data
         Bundle bundle = new Bundle();
         bundle.putString("cliente", entrega.getCliente());
         bundle.putString("fecha_entrega", entrega.getFechaEntrega());
         bundle.putString("estado", entrega.getEstado());
         bundle.putString("direccion", entrega.getDireccion());
 
-        // Set the arguments for the fragment
         entregaDetailFragment.setArguments(bundle);
 
-        // Replace the current fragment with EntregaDetailFragment
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, entregaDetailFragment) // Use the correct container ID

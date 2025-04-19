@@ -33,11 +33,6 @@
             app:itemIconTint="@color/bottom_nav_colors"
             app:itemTextColor="@color/bottom_nav_colors"/>
 
-        <!-- Espacio flexible entre los dos BottomNavigationViews (si es necesario) -->
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"/>
 
         <!-- Grupo derecho -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
