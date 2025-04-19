@@ -16,13 +16,13 @@ import java.util.List;
 
 
 import ar.edu.uade.deremate.R;
-import ar.edu.uade.deremate.model.Entrega;
+import ar.edu.uade.deremate.data.api.model.Entrega;
 public class EntregaAdapter extends RecyclerView.Adapter<EntregaAdapter.EntregaViewHolder> {
 
-    private List<Entrega> listaEntregas;
+    private List<Entrega> entregas;
 
-    public EntregaAdapter(List<Entrega> listaEntregas) {
-        this.listaEntregas = listaEntregas;
+    public EntregaAdapter(List<Entrega> entregas) {
+        this.entregas = entregas;
     }
 
     @NonNull
@@ -35,35 +35,34 @@ public class EntregaAdapter extends RecyclerView.Adapter<EntregaAdapter.EntregaV
 
     @Override
     public void onBindViewHolder(@NonNull EntregaViewHolder holder, int position) {
-        Entrega entrega = listaEntregas.get(position);
-        holder.tvCliente.setText("Cliente: " + entrega.getCliente());
-        holder.tvFecha.setText("Fecha: " + entrega.getFechaEntrega());
-        holder.tvEstado.setText("Estado: " + entrega.getEstado());
-
-        holder.itemView.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putString("cliente", entrega.getCliente());
-            bundle.putString("fechaEntrega", entrega.getFechaEntrega());
-            bundle.putString("estado", entrega.getEstado());
-            bundle.putString("direccion", entrega.getDireccion());
-
-            Navigation.findNavController(v).navigate(R.id.action_historialFragment_to_detalleEntregaFragment, bundle);
-        });
+        Entrega entrega = entregas.get(position);
+        holder.bind(entrega);
     }
 
     @Override
     public int getItemCount() {
-        return listaEntregas.size();
+        return entregas.size();
     }
 
-    public static class EntregaViewHolder extends RecyclerView.ViewHolder {
-        TextView tvCliente, tvFecha, tvEstado;
+    static class EntregaViewHolder extends RecyclerView.ViewHolder {
+        private TextView txtCliente;
+        private TextView txtFecha;
+        private TextView txtEstado;
+        private TextView txtDireccion;
 
         public EntregaViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvCliente = itemView.findViewById(R.id.tvCliente);
-            tvFecha = itemView.findViewById(R.id.tvFecha);
-            tvEstado = itemView.findViewById(R.id.tvEstado);
+            txtCliente = itemView.findViewById(R.id.txtCliente);
+            txtFecha = itemView.findViewById(R.id.txtFecha);
+            txtEstado = itemView.findViewById(R.id.txtEstado);
+            txtDireccion = itemView.findViewById(R.id.txtDireccion);
+        }
+
+        public void bind(Entrega entrega) {
+            txtCliente.setText(entrega.getCliente());
+            txtFecha.setText(entrega.getFechaEntrega());
+            txtEstado.setText(entrega.getEstado());
+            txtDireccion.setText(entrega.getDireccion());
         }
     }
 }

@@ -89,7 +89,7 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onSuccess(Void response) {
                 Toast.makeText(getActivity(), "Check your email", Toast.LENGTH_SHORT).show();
-                NavHostFragment.findNavController(RegisterFragment.this).navigate(R.id.action_registerFragment_to_signUpCodeFragment);
+               // NavHostFragment.findNavController(RegisterFragment.this).navigate(R.id.action_registerFragment_to_signUpCodeFragment);
             }
 
             @Override

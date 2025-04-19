@@ -31,8 +31,11 @@ public class AuthRetrofitRepository implements AuthRepository{
         authService.signin(new LoginRequest(email, password)).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
-                assert response.body() != null;
-                callback.onSuccess(new LoginResponse(response.body().getAccessToken()));
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(new LoginResponse(response.body().getAccessToken()));
+                } else {
+                    callback.onError(new RuntimeException("Login failed: " + response.code() + " " + response.message()));
+                }
             }
 
             @Override
