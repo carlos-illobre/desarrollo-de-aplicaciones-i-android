@@ -110,13 +110,13 @@ public class ForgotPasswordFragment extends Fragment {
         this.authRepository.recoverPassword(request, new AuthServiceCallback<Void>() {
             @Override
             public void onSuccess(Void response) {
-                Toast.makeText(getActivity(), "Signup confirmed successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Password changed successfully", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(Throwable error) {
                 Log.e("RecoverPasswordFragment", "API call failed",error);
-                Toast.makeText(getActivity(), "Failed to sign up, please try again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Failed to change password, please try again", Toast.LENGTH_SHORT).show();
             }
         });
     }
