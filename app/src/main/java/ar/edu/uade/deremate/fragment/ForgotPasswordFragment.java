@@ -3,6 +3,7 @@ package ar.edu.uade.deremate.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -38,7 +39,7 @@ public class ForgotPasswordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_recover_password, container, false);
 
         emailInput = view.findViewById(R.id.recoverPassword_emailInput);
@@ -77,14 +78,13 @@ public class ForgotPasswordFragment extends Fragment {
         confirmPasswordInput.addTextChangedListener(textWatcher);
 
         recoverButton.setOnClickListener(v -> {
-                    Log.d("RecoverPasswordFragment", "Recover button clicked");
-                    recoverPassword(
-                            emailInput.getText().toString().trim(),
-                            passwordInput.getText().toString(),
-                            confirmPasswordInput.getText().toString()
-                    );
-                });
-        cancelButton.setOnClickListener(v->requireActivity().getSupportFragmentManager().popBackStack());
+            recoverPassword(
+                    emailInput.getText().toString().trim(),
+                    passwordInput.getText().toString(),
+                    confirmPasswordInput.getText().toString()
+            );
+        });
+        cancelButton.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
     }
 
     private void validateInputs() {
@@ -110,12 +110,13 @@ public class ForgotPasswordFragment extends Fragment {
         this.authRepository.recoverPassword(request, new AuthServiceCallback<Void>() {
             @Override
             public void onSuccess(Void response) {
-                Toast.makeText(getActivity(), "Password changed successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Password reset requested successfully", Toast.LENGTH_SHORT).show();
+                NavHostFragment.findNavController(ForgotPasswordFragment.this).navigate(R.id.action_forgot_passwordFragment_to_codeConfirmationFragment);
             }
 
             @Override
             public void onError(Throwable error) {
-                Log.e("RecoverPasswordFragment", "API call failed",error);
+                Log.e("RecoverPasswordFragment", "API call failed", error);
                 Toast.makeText(getActivity(), "Failed to change password, please try again", Toast.LENGTH_SHORT).show();
             }
         });

@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import ar.edu.uade.deremate.data.api.AuthService;
+import ar.edu.uade.deremate.data.api.model.ConfirmPasswordResetRequest;
 import ar.edu.uade.deremate.data.api.model.ConfirmSignupRequest;
 import ar.edu.uade.deremate.data.api.model.LoginRequest;
 import ar.edu.uade.deremate.data.api.model.LoginResponse;
@@ -53,8 +54,7 @@ public class AuthRetrofitRepository implements AuthRepository {
                 if (response.isSuccessful()) {
                     callback.onSuccess(null);
                 } else {
-                    callback.onError(new Exception(String.format("API error: %s - %s ",
-                            response.code(), response.message())));
+                    callback.onError(new Exception("Error confirming signup, please try again"));
                 }
             }
 
@@ -73,8 +73,26 @@ public class AuthRetrofitRepository implements AuthRepository {
                 if (response.isSuccessful()) {
                     callback.onSuccess(null);
                 } else {
-                    callback.onError(new Exception(String.format("API error: %s - %s ",
-                            response.code(), response.message())));
+                    callback.onError(new Exception("Error recovering password, please try again"));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    @Override
+    public void confirmPasswordReset(String otp, AuthServiceCallback<Void> callback) {
+        authService.confirmPasswordReset(new ConfirmPasswordResetRequest(otp)).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(null);
+                } else {
+                    callback.onError(new Exception("Error confirming password reset, please try again"));
                 }
             }
 
@@ -93,8 +111,7 @@ public class AuthRetrofitRepository implements AuthRepository {
                 if (response.isSuccessful()) {
                     callback.onSuccess(null);
                 } else {
-                    callback.onError(new Exception(String.format("API error: %s - %s ",
-                            response.code(), response.message())));
+                    callback.onError(new Exception("Error registering, please try again"));
                 }
             }
 

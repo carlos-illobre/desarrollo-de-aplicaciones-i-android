@@ -17,6 +17,7 @@ import ar.edu.uade.deremate.data.api.model.RouteResponse;
 import ar.edu.uade.deremate.data.repository.auth.AuthServiceCallback;
 import ar.edu.uade.deremate.data.repository.route.RouteRepository;
 import ar.edu.uade.deremate.data.repository.token.TokenRepository;
+import ar.edu.uade.deremate.fragment.HistorialFragment;
 import ar.edu.uade.deremate.fragment.route.RouteDetailFragment;
 import ar.edu.uade.deremate.fragment.route.RouteSelectedListener;
 import ar.edu.uade.deremate.fragment.route.RoutesFragment;
@@ -54,6 +55,9 @@ public class RoutesActivity extends AppCompatActivity implements RouteSelectedLi
         bottomNavRight.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.menu_logout) {
                 logout();
+                return true;
+            } else if (item.getItemId() == R.id.menu_historial) {
+                showHistorial();
                 return true;
             }
             return false;
@@ -122,5 +126,14 @@ public class RoutesActivity extends AppCompatActivity implements RouteSelectedLi
                 .addToBackStack("route_detail") // Permite volver atras con el boton de retroceso
                 .commit();
     }
+
+    private void showHistorial() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new HistorialFragment())
+                .addToBackStack("historial")
+                .commit();
+    }
+
+
 
 }
