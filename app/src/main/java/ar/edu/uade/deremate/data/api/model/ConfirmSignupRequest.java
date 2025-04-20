@@ -1,9 +1,9 @@
 package ar.edu.uade.deremate.data.api.model;
 
 public class ConfirmSignupRequest {
-    private final String signupCode;
+    private final String otp;
 
-    public ConfirmSignupRequest(String signupCode){
-        this.signupCode = signupCode;
+    public ConfirmSignupRequest(String otp){
+        this.otp = otp;
     }
 }

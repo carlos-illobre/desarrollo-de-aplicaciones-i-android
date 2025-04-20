@@ -112,7 +112,7 @@ public class LoginFragment extends Fragment {
             this.authRepository.login(email, password, new AuthServiceCallback<LoginResponse>() {
                 @Override
                 public void onSuccess(LoginResponse response) {
-                    Toast.makeText(getActivity(), "Signup successful!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Sign in successful!", Toast.LENGTH_SHORT).show();
                     tokenRepository.saveToken(response.getAccessToken());
                     listener.onLoginSuccess();
                 }
@@ -120,12 +120,12 @@ public class LoginFragment extends Fragment {
                 @Override
                 public void onError(Throwable error) {
                     Log.e("RecoverPasswordFragment", "API call failed", error);
-                    Toast.makeText(getActivity(), "Failed to recover password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Failed login, please try again", Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (Exception e) {
             Log.e("LoginFragment", "Error during login", e);
-            Toast.makeText(getActivity(), "Error during login, please try again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Failed login, please try again", Toast.LENGTH_SHORT).show();
         }
     }
 
