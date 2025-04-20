@@ -120,7 +120,8 @@ public class CodeConfirmationFragment extends Fragment {
             @Override
             public void onSuccess(Void response) {
                 Toast.makeText(getActivity(), "Password reset confirmed successfully", Toast.LENGTH_SHORT).show();
-                //NavHostFragment.findNavController(CodeConfirmationFragment.this).navigate(R.id.action_codeConfirmationFragment_to_loginFragment);
+                NavHostFragment.findNavController(CodeConfirmationFragment.this)
+                        .navigate(R.id.action_codeConfirmationFragment_to_loginFragment);
             }
 
             @Override

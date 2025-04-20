@@ -112,6 +112,8 @@ public class ForgotPasswordFragment extends Fragment {
             @Override
             public void onSuccess(Void response) {
                 Toast.makeText(getActivity(), "Password reset requested successfully", Toast.LENGTH_SHORT).show();
+                NavHostFragment.findNavController(ForgotPasswordFragment.this)
+                        .navigate(R.id.action_forgotPasswordFragment_to_codeConfirmationFragment);
             }
 
             @Override

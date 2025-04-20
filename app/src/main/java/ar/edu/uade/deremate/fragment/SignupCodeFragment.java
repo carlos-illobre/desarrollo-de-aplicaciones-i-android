@@ -25,9 +25,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class SignupCodeFragment extends Fragment {
 
-    private EditText signupCodeInput;
-    private Button cancelButton;
-    private Button acceptButton;
+    private EditText codeDigit1, codeDigit2, codeDigit3, codeDigit4, codeDigit5, codeDigit6;
+    private Button acceptButton, cancelButton;
     @Inject
     AuthRepository authRepository;
 
@@ -41,49 +40,32 @@ public class SignupCodeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_signup_code_input, container, false);
 
-        signupCodeInput = view.findViewById(R.id.signUpCodeInput);
-        signupCodeInput.requestFocus();
-        acceptButton = view.findViewById(R.id.acceptSignUpCodeInput);
-        cancelButton = view.findViewById(R.id.cancelSignUpCodeInput);
+        codeDigit1 = view.findViewById(R.id.code_digit_1);
+        codeDigit2 = view.findViewById(R.id.code_digit_2);
+        codeDigit3 = view.findViewById(R.id.code_digit_3);
+        codeDigit4 = view.findViewById(R.id.code_digit_4);
+        codeDigit5 = view.findViewById(R.id.code_digit_5);
+        codeDigit6 = view.findViewById(R.id.code_digit_6);
+        acceptButton = view.findViewById(R.id.accept_button);
+        cancelButton = view.findViewById(R.id.cancel_button);
+
 
         acceptButton.setEnabled(false);
 
         setupListeners();
-
-        return view;
-    }
-
-    private void setupListeners() {
-        TextWatcher textWatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validateInput();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        };
-
-        signupCodeInput.addTextChangedListener(textWatcher);
 
         cancelButton.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
         acceptButton.setOnClickListener(v -> {
             Log.d("SignupCodeFragment", "Accept button clicked");
             Toast.makeText(getActivity(), "Accept button clicked", Toast.LENGTH_SHORT).show();
 
-            String signupCode = signupCodeInput.getText().toString();
+            String signupCode = getSignupCode();
             confirmSignup(signupCode);
         });
+
+        return view;
     }
 
     private void confirmSignup(String signupCode) {
@@ -91,6 +73,8 @@ public class SignupCodeFragment extends Fragment {
             @Override
             public void onSuccess(Void response) {
                 Toast.makeText(getActivity(), "Signup confirmed successfully", Toast.LENGTH_SHORT).show();
+                NavHostFragment.findNavController(SignupCodeFragment.this)
+                        .navigate(R.id.action_codeConfirmationFragment_to_loginFragment);
             }
 
             @Override
@@ -101,10 +85,41 @@ public class SignupCodeFragment extends Fragment {
         });
     }
 
+    private void setupListeners() {
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validateInput();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        };
+
+        codeDigit1.addTextChangedListener(textWatcher);
+        codeDigit2.addTextChangedListener(textWatcher);
+        codeDigit3.addTextChangedListener(textWatcher);
+        codeDigit4.addTextChangedListener(textWatcher);
+        codeDigit5.addTextChangedListener(textWatcher);
+        codeDigit6.addTextChangedListener(textWatcher);
+    }
+
     private void validateInput() {
-        String signupCode = signupCodeInput.getText().toString();
+        String signupCode = getSignupCode();
         boolean isValidCode = signupCode.matches("\\d{6}");
 
         acceptButton.setEnabled(isValidCode);
+    }
+
+    private String getSignupCode() {
+        return codeDigit1.getText().toString() +
+                codeDigit2.getText().toString() +
+                codeDigit3.getText().toString() +
+                codeDigit4.getText().toString() +
+                codeDigit5.getText().toString() +
+                codeDigit6.getText().toString();
     }
 }

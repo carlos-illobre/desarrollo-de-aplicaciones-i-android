@@ -22,13 +22,21 @@
         android:id="@+id/codeConfirmationFragment"
         android:name="ar.edu.uade.deremate.fragment.CodeConfirmationFragment"
         android:label="@string/signup_code_label"
-        tools:layout="@layout/fragment_code_confirmation" />
+        tools:layout="@layout/fragment_code_confirmation" >
+        <action
+            android:id="@+id/action_codeConfirmationFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="ar.edu.uade.deremate.fragment.ForgotPasswordFragment"
         android:label="@string/recover_password_label"
-        tools:layout="@layout/fragment_recover_password" />
+        tools:layout="@layout/fragment_recover_password" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_codeConfirmationFragment"
+            app:destination="@id/codeConfirmationFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/registerFragment"
@@ -37,7 +45,15 @@
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_signUpCodeFragment"
-            app:destination="@id/codeConfirmationFragment" />
+            app:destination="@id/signupCodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupCodeFragment"
+        android:name="ar.edu.uade.deremate.fragment.SignupCodeFragment"
+        android:label="SignupCodeFragment" >
+        <action
+            android:id="@+id/action_signupCodeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
 
