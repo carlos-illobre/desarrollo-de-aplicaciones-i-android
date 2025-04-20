@@ -34,6 +34,12 @@ public class RoutesActivity extends AppCompatActivity implements RouteSelectedLi
     TokenRepository tokenRepository;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        loadRoutesAndShowFragment();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routes);
@@ -62,28 +68,21 @@ public class RoutesActivity extends AppCompatActivity implements RouteSelectedLi
             }
             return false;
         });
-
-        loadRoutesAndShowFragment();
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (tokenRepository.isTokenExpired()) {
-            Toast.makeText(this, "Session expired, please login again", Toast.LENGTH_SHORT).show();
-            logout();
-        }
-    }
-
     private void loadRoutesAndShowFragment() {
         routeRepository.getRoutes(new AuthServiceCallback<>() {
             @Override
             public void onSuccess(List<RouteResponse> routes) {
                 showRoutesFragment(routes);
             }
+
             @Override
             public void onError(Throwable error) {
-                Toast.makeText(RoutesActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                if (tokenRepository.isTokenExpired()) {
+                    logout();
+                } else {
+                    Toast.makeText(RoutesActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -107,6 +106,8 @@ public class RoutesActivity extends AppCompatActivity implements RouteSelectedLi
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear back stack
         startActivity(intent);
+
+        Toast.makeText(this, "Session expired, please login again", Toast.LENGTH_SHORT).show();
 
         // Finish the current activity
         finish();
@@ -133,7 +134,4 @@ public class RoutesActivity extends AppCompatActivity implements RouteSelectedLi
                 .addToBackStack("historial")
                 .commit();
     }
-
-
-
 }
