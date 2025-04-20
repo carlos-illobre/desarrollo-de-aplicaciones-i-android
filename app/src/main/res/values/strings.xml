@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">DeRemate</string>
-    <string name="action_settings">Settings</string>
 
     <string name="profile">Perfil</string>
     <string name="routes">Rutas</string>
@@ -37,8 +36,6 @@
     <string name="otpHint">123456</string>
 
     <string name="login_label">Login</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="cancelar">cancelar</string>
     <string name="apellido">Apellido</string>
     <string name="email">Email</string>

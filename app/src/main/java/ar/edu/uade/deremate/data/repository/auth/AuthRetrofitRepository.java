@@ -19,7 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 @Singleton
-public class AuthRetrofitRepository implements AuthRepository{
+public class AuthRetrofitRepository implements AuthRepository {
 
     private final AuthService authService;
 
@@ -36,7 +36,7 @@ public class AuthRetrofitRepository implements AuthRepository{
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(new LoginResponse(response.body().getAccessToken()));
                 } else {
-                    callback.onError(new RuntimeException("Login failed: " + response.code() + " " + response.message()));
+                    callback.onError(new Exception("There was an error with your login, please try again"));
                 }
             }
 
@@ -53,7 +53,11 @@ public class AuthRetrofitRepository implements AuthRepository{
         authService.confirmSignup(new ConfirmSignupRequest(signupCode)).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                callback.onSuccess(null);
+                if (response.isSuccessful()) {
+                    callback.onSuccess(null);
+                } else {
+                    callback.onError(new Exception("Error confirming signup, please try again"));
+                }
             }
 
             @Override
@@ -68,7 +72,11 @@ public class AuthRetrofitRepository implements AuthRepository{
         authService.recoverPassword(request).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                callback.onSuccess(null);
+                if (response.isSuccessful()) {
+                    callback.onSuccess(null);
+                } else {
+                    callback.onError(new Exception("Error recovering password, please try again"));
+                }
             }
 
             @Override
@@ -83,7 +91,11 @@ public class AuthRetrofitRepository implements AuthRepository{
         authService.confirmPasswordReset(new ConfirmPasswordResetRequest(otp)).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                callback.onSuccess(null);
+                if (response.isSuccessful()) {
+                    callback.onSuccess(null);
+                } else {
+                    callback.onError(new Exception("Error confirming password reset, please try again"));
+                }
             }
 
             @Override

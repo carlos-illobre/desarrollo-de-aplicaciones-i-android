@@ -78,14 +78,13 @@ public class ForgotPasswordFragment extends Fragment {
         confirmPasswordInput.addTextChangedListener(textWatcher);
 
         recoverButton.setOnClickListener(v -> {
-                    Log.d("RecoverPasswordFragment", "Recover button clicked");
-                    recoverPassword(
-                            emailInput.getText().toString().trim(),
-                            passwordInput.getText().toString(),
-                            confirmPasswordInput.getText().toString()
-                    );
-                });
-        cancelButton.setOnClickListener(v->requireActivity().getSupportFragmentManager().popBackStack());
+            recoverPassword(
+                    emailInput.getText().toString().trim(),
+                    passwordInput.getText().toString(),
+                    confirmPasswordInput.getText().toString()
+            );
+        });
+        cancelButton.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
     }
 
     private void validateInputs() {
@@ -112,14 +111,13 @@ public class ForgotPasswordFragment extends Fragment {
             @Override
             public void onSuccess(Void response) {
                 Toast.makeText(getActivity(), "Password reset requested successfully", Toast.LENGTH_SHORT).show();
-                NavHostFragment.findNavController(ForgotPasswordFragment.this)
-                        .navigate(R.id.action_forgotPasswordFragment_to_codeConfirmationFragment);
+                NavHostFragment.findNavController(ForgotPasswordFragment.this).navigate(R.id.action_forgot_passwordFragment_to_codeConfirmationFragment);
             }
 
             @Override
             public void onError(Throwable error) {
-                Log.e("RecoverPasswordFragment", "API call failed",error);
-                Toast.makeText(getActivity(), "Failed to recover password", Toast.LENGTH_SHORT).show();
+                Log.e("RecoverPasswordFragment", "API call failed", error);
+                Toast.makeText(getActivity(), "Failed to change password, please try again", Toast.LENGTH_SHORT).show();
             }
         });
     }

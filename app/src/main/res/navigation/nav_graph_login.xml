@@ -19,12 +19,22 @@
     </fragment>
 
     <fragment
-        android:id="@+id/codeConfirmationFragment"
-        android:name="ar.edu.uade.deremate.fragment.CodeConfirmationFragment"
-        android:label="Confirmar cambio de contraseña"
-        tools:layout="@layout/fragment_code_confirmation">
+        android:id="@+id/registerFragment"
+        android:name="ar.edu.uade.deremate.fragment.RegisterFragment"
+        android:label="Register"
+        tools:layout="@layout/fragment_register">
         <action
-            android:id="@+id/action_codeConfirmationFragment_to_loginFragment"
+            android:id="@+id/action_registerFragment_to_signUpCodeFragment"
+            app:destination="@id/signUpCodeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpCodeFragment"
+        android:name="ar.edu.uade.deremate.fragment.SignupCodeFragment"
+        android:label="@string/signup_code_label"
+        tools:layout="@layout/fragment_signup_code_input">
+        <action
+            android:id="@+id/action_signUpCodeFragmentToLoginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
 
@@ -32,29 +42,20 @@
         android:id="@+id/forgotPasswordFragment"
         android:name="ar.edu.uade.deremate.fragment.ForgotPasswordFragment"
         android:label="@string/recover_password_label"
-        tools:layout="@layout/fragment_recover_password" >
+        tools:layout="@layout/fragment_recover_password">
         <action
-            android:id="@+id/action_forgotPasswordFragment_to_codeConfirmationFragment"
+            android:id="@+id/action_forgot_passwordFragment_to_codeConfirmationFragment"
             app:destination="@id/codeConfirmationFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/registerFragment"
-        android:name="ar.edu.uade.deremate.fragment.RegisterFragment"
-        android:label="Register"
-        tools:layout="@layout/fragment_register">
+        android:id="@+id/codeConfirmationFragment"
+        android:name="ar.edu.uade.deremate.fragment.CodeConfirmationFragment"
+        android:label="@string/signup_code_label"
+        tools:layout="@layout/fragment_code_confirmation">
         <action
-            android:id="@+id/action_registerFragment_to_signUpCodeFragment"
-            app:destination="@id/signupCodeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/signupCodeFragment"
-        android:name="ar.edu.uade.deremate.fragment.SignupCodeFragment"
-        android:label="@string/signup_code_label">
-        <action
-            android:id="@+id/action_signupCodeFragment_to_loginFragment"
+            android:id="@+id/action_codeConfirmationFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
-
 
 </navigation>
