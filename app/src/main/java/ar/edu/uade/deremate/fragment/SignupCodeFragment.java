@@ -74,7 +74,7 @@ public class SignupCodeFragment extends Fragment {
             public void onSuccess(Void response) {
                 Toast.makeText(getActivity(), "Signup confirmed successfully", Toast.LENGTH_SHORT).show();
                 NavHostFragment.findNavController(SignupCodeFragment.this)
-                        .navigate(R.id.action_codeConfirmationFragment_to_loginFragment);
+                        .navigate(R.id.action_signupCodeFragment_to_loginFragment);
             }
 
             @Override

@@ -21,8 +21,8 @@
     <fragment
         android:id="@+id/codeConfirmationFragment"
         android:name="ar.edu.uade.deremate.fragment.CodeConfirmationFragment"
-        android:label="@string/signup_code_label"
-        tools:layout="@layout/fragment_code_confirmation" >
+        android:label="Confirmar cambio de contraseña"
+        tools:layout="@layout/fragment_code_confirmation">
         <action
             android:id="@+id/action_codeConfirmationFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -50,7 +50,7 @@
     <fragment
         android:id="@+id/signupCodeFragment"
         android:name="ar.edu.uade.deremate.fragment.SignupCodeFragment"
-        android:label="SignupCodeFragment" >
+        android:label="@string/signup_code_label">
         <action
             android:id="@+id/action_signupCodeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
