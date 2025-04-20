@@ -1,66 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="false"
-    android:layout_gravity="center_horizontal"
-    android:backgroundTint="#731C1C"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
-    tools:context=".fragment.SignupCodeFragment">
+    android:padding="24dp">
 
     <TextView
-        android:id="@+id/signupCodeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/signUpCodeTitleText"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:layout_marginBottom="16dp"
+        android:text="Ingresa el código"
+        android:textSize="16sp" />
 
-    <com.chaos.view.PinView
-        android:id="@+id/signUpCodeInput"
-        style="@style/PinWidget.PinView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:cursorVisible="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:hint="@string/otpHint"
-        android:inputType="text"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:cursorWidth="2dp"
-        app:itemCount="6"
-        app:itemHeight="48dp"
-        app:itemRadius="4dp"
-        app:itemSpacing="2dp"
-        app:itemWidth="48dp"
-        app:lineColor="?attr/colorSecondary"
-        app:lineWidth="2dp"
-        app:viewType="rectangle" />
-
+    <!-- LinearLayout para los 6 campos de código -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
+        android:layout_marginBottom="24dp"
+        android:orientation="horizontal"
+        android:gravity="center">
 
-        <Button
-            android:id="@+id/cancelSignUpCodeInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="?attr/colorSecondary"
-            android:text="@string/cancelSignUpCodeText"
-            android:textColorLink="#FFFBFB" />
+        <EditText
+            android:id="@+id/code_digit_1"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="18sp"
+            android:background="@android:drawable/editbox_background" />
 
-        <Button
-            android:id="@+id/acceptSignUpCodeInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/acceptSignupCodeText" />
+        <EditText
+            android:id="@+id/code_digit_2"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="18sp"
+            android:background="@android:drawable/editbox_background" />
 
+        <EditText
+            android:id="@+id/code_digit_3"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="18sp"
+            android:background="@android:drawable/editbox_background" />
+
+        <EditText
+            android:id="@+id/code_digit_4"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="18sp"
+            android:background="@android:drawable/editbox_background" />
+
+        <EditText
+            android:id="@+id/code_digit_5"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="18sp"
+            android:background="@android:drawable/editbox_background" />
+
+        <EditText
+            android:id="@+id/code_digit_6"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="18sp"
+            android:background="@android:drawable/editbox_background" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/accept_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Verificar" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancelar" />
+
 </LinearLayout>
