@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
@@ -42,6 +45,16 @@ public class TokenRepository {
 
     public void saveToken(String token) {
         encryptedPrefs.edit().putString(KEY_JWT_TOKEN, token).apply();
+    }
+
+    public boolean isTokenExpired() {
+        try {
+            String token = encryptedPrefs.getString(KEY_JWT_TOKEN, null);
+            DecodedJWT decodedJWT = JWT.decode(token);
+            return decodedJWT.getExpiresAt().before(new java.util.Date());
+        } catch (Exception e) {
+            return true;
+        }
     }
 
     public String getToken() {
