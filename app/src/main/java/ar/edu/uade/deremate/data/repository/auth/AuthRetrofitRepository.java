@@ -2,8 +2,6 @@ package ar.edu.uade.deremate.data.repository.auth;
 
 import androidx.annotation.NonNull;
 
-import java.io.IOException;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -106,27 +104,19 @@ public class AuthRetrofitRepository implements AuthRepository {
     }
 
     @Override
-    public void register(SignUpRequest request, AuthServiceCallback<Void> callback){
-        authService.signUp(request).enqueue(new Callback<Void>() {
+    public void register(SignUpRequest request, AuthServiceCallback<Void> callback) {
+        authService.signUp(request).enqueue(new Callback<>() {
             @Override
-            public void onResponse(@NonNull Call<Void> call,
-                                   @NonNull Response<Void> response) {
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
                     callback.onSuccess(null);
                 } else {
-                    String errorMsg = "Error " + response.code();
-                    try {
-                        String body = response.errorBody().string();
-                        errorMsg = body;
-                    } catch (IOException e) {
-                    }
-                    callback.onError(new RuntimeException(errorMsg));
+                    callback.onError(new Exception("Error registering, please try again"));
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<Void> call,
-                                  @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                 callback.onError(t);
             }
         });
