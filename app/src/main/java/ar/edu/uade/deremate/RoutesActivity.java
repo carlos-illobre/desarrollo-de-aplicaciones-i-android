@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -42,6 +43,7 @@ public class RoutesActivity extends AppCompatActivity implements RouteSelectedLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadRoutesAndShowFragment();
         setContentView(R.layout.activity_routes);
 
         bottomNavLeft = findViewById(R.id.bottom_navigation_left);
@@ -110,6 +112,8 @@ public class RoutesActivity extends AppCompatActivity implements RouteSelectedLi
         if (expired) {
             Toast.makeText(this, "Session expired, please login again", Toast.LENGTH_SHORT).show();
         }
+
+        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         // Finish the current activity
         finish();
     }
