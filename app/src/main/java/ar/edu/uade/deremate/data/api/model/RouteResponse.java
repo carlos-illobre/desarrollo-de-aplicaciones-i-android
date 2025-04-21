@@ -30,7 +30,7 @@ public class RouteResponse implements Parcelable {
 
     @Override
     public String toString() {
-        return warehouse + " ["+ packageId + "]";
+        return warehouse;
     }
 
     protected RouteResponse(Parcel in) {

@@ -60,7 +60,7 @@ public class RoutesActivity extends AppCompatActivity implements RouteSelectedLi
 
         bottomNavRight.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.menu_logout) {
-                logout();
+                logout(false);
                 return true;
             } else if (item.getItemId() == R.id.menu_historial) {
                 showHistorial();
@@ -79,7 +79,7 @@ public class RoutesActivity extends AppCompatActivity implements RouteSelectedLi
             @Override
             public void onError(Throwable error) {
                 if (tokenRepository.isTokenExpired()) {
-                    logout();
+                    logout(true);
                 } else {
                     Toast.makeText(RoutesActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -98,7 +98,7 @@ public class RoutesActivity extends AppCompatActivity implements RouteSelectedLi
         Toast.makeText(this, "Perfil seleccionado", Toast.LENGTH_SHORT).show();
     }
 
-    private void logout() {
+    private void logout(boolean expired) {
         // Clear session data (e.g., token)
         tokenRepository.clearToken();
 
@@ -107,8 +107,9 @@ public class RoutesActivity extends AppCompatActivity implements RouteSelectedLi
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear back stack
         startActivity(intent);
 
-        Toast.makeText(this, "Session expired, please login again", Toast.LENGTH_SHORT).show();
-
+        if (expired) {
+            Toast.makeText(this, "Session expired, please login again", Toast.LENGTH_SHORT).show();
+        }
         // Finish the current activity
         finish();
     }

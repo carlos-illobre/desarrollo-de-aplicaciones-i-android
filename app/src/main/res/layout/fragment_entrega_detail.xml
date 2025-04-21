@@ -20,7 +20,7 @@
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/baseline_arrow_back_24"
             app:title="@string/entrega_detail"
-            app:titleTextColor="@android:color/white" />
+            app:titleTextColor="@android:color/black" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.card.MaterialCardView
@@ -116,16 +116,5 @@
                 android:layout_marginBottom="16dp" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:contentDescription="@string/entrega_action"
-        app:layout_anchor="@id/toolbar"
-        app:layout_anchorGravity="bottom|right|end"
-        android:tint="@android:color/white"
-        app:backgroundTint="?attr/colorPrimary"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
