@@ -43,7 +43,6 @@ public class RoutesActivity extends AppCompatActivity implements RouteSelectedLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadRoutesAndShowFragment();
         setContentView(R.layout.activity_routes);
 
         bottomNavLeft = findViewById(R.id.bottom_navigation_left);
